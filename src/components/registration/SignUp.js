@@ -1,8 +1,49 @@
 import './sign.scss';
 
 import logo from '../../resources/img/icons/logo_v1.svg';
+import blogClient from '../../utils/blog_client';
+import { useId, useState } from 'react';
+import { setTokenCookie } from '../../utils/cookie_manager';
 
 const SignUp = () => {
+    const usernameId = useId();
+    const passwordId = useId();
+    const confirmPasswordId = useId();
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    async function performSignUp(e) {
+        if (username.length < 6) {
+            alert('Username must be at least 6 characters long');
+            return;
+        }
+
+        if (password.length < 6) {
+            alert('Password must be at least 6 characters long');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        const client = await blogClient.init();
+        try {
+            const response = await client.login({}, {
+                username: username,
+                password: password,
+            });
+            const { user, token } = response.data;
+            alert('Successfully registered. Token: ' + token);
+            setTokenCookie(token);
+        } catch (error) {
+            alert('Error: ' + error);
+        }
+    }
+
     return (
         <section className="sign">
             <hr className="divider divider_sign" />
@@ -16,17 +57,17 @@ const SignUp = () => {
                 </div>
                 <div className="sign__wrapper">
                     <h2 className="title title_sign">Registration</h2>
-                    <form action="#" className="form_sign">
-                        <h5 className="title title_above">Email</h5>
-                        <input type="text" name="email" placeholder="Enter your email address here" />
+                    <div className="form_sign">
+                        {/* <h5 className="title title_above">Email</h5>
+                        <input type="text" name="email" placeholder="Enter your email address here" /> */}
                         <h5 className="title title_above">Username</h5>
-                        <input type="text" name="name" placeholder="Enter your name here" />
+                        <input id={usernameId} value={username} onInput={e => setUsername(e.target.value)} type="text" name="name" placeholder="Enter your name here" />
                         <h5 className="title title_above">Password</h5>
-                        <input type="text" name="password" placeholder="Enter a strong password here" />
+                        <input id={passwordId} value={password} onInput={e => setPassword(e.target.value)} type="text" name="password" placeholder="Enter a strong password here" />
                         <h5 className="title title_above">Repeat password</h5>
-                        <input type="text" name="password" placeholder="Repeat the password entered above here" />
-                        <button className="button button_sign">Sign Up</button>
-                    </form>
+                        <input id={confirmPasswordId} value={confirmPassword} onInput={e => setConfirmPassword(e.target.value)} type="text" name="password" placeholder="Repeat the password entered above here" />
+                        <button onClick={performSignUp} className="button button_sign">Sign Up</button>
+                    </div>
                 </div>
                 <div className="log-in">
                     Already registered? <a href="/signIn">Log in</a>
