@@ -1,0 +1,13 @@
+@import '../../style/variables.scss';
+
+.bloging {
+    padding: 100px 0;
+    &__descr {
+        margin: 0 auto 60px;
+        max-width: 1000px;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 2.2;
+        text-align: center;
+    }
+}
