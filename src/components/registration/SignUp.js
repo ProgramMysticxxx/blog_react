@@ -39,6 +39,7 @@ const SignUp = () => {
             const { user, token } = response.data;
             alert('Successfully registered. Token: ' + token);
             setTokenCookie(token);
+            document.location.href = '/';
         } catch (error) {
             alert('Error: ' + error);
         }

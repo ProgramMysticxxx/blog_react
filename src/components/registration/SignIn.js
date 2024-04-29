@@ -13,15 +13,15 @@ const SignIn = () => {
     const [password, setPassword] = useState('');
 
     async function performSignIn(e) {
-        if (username.length < 6) {
-            alert('Username must be at least 6 characters long');
-            return;
-        }
+        // if (username.length < 6) {
+        //     alert('Username must be at least 6 characters long');
+        //     return;
+        // }
 
-        if (password.length < 6) {
-            alert('Password must be at least 6 characters long');
-            return;
-        }
+        // if (password.length < 6) {
+        //     alert('Password must be at least 6 characters long');
+        //     return;
+        // }
 
         const client = await blogClient.init();
         try {
@@ -32,6 +32,7 @@ const SignIn = () => {
             const { user, token } = response.data;
             alert('Successfully logged in. Token: ' + token);
             setTokenCookie(token);
+            document.location.href = '/';
         } catch (error) {
             alert('Error: ' + error);
         }
