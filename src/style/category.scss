@@ -26,6 +26,8 @@
         border: none;
         background-color: $mainTextColor;
         color: $titleColor;
+        opacity: 0.99;
+        font-size: 15px;
     }
 
     &_development {

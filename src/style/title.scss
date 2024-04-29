@@ -89,4 +89,16 @@
             text-decoration: none;
         }
     }
+
+    &_aside {
+        font-family: 'Metropolis', sans-serif;
+        font-weight: 600;
+        font-size: 24px;
+        letter-spacing: 1.5px;
+    }
+
+    &_plus {
+        font-size: 19.5px;
+        letter-spacing: 0.8px;
+    }
 }
