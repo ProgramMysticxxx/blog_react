@@ -36,7 +36,9 @@ function TagList() {
 }
 function _TagItem(name) {
     return (
-        <li><a href={_getTagUrl(name)} className="tags__link">#{name}</a></li>
+        <li><a 
+        // href={_getTagUrl(name)}
+         className="tags__link">#{name}</a></li>
     );
 }
 

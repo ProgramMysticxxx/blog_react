@@ -32,7 +32,7 @@ const SignUp = () => {
 
         const client = await blogClient.init();
         try {
-            const response = await client.login({}, {
+            const response = await client.register({}, {
                 username: username,
                 password: password,
             });

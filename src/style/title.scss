@@ -6,6 +6,7 @@
     letter-spacing: -1px;
     color: $mainTextColor;
     text-transform: capitalize;
+    overflow-wrap: break-word;
 
     &_main {
         font-size: 36px;

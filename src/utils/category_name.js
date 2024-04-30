@@ -1,4 +1,4 @@
-export default {
+const categoryName = {
     null: "All Categories",
     "development": "Development",
     "administration": "Administration",
@@ -7,3 +7,5 @@ export default {
     "marketing": "Marketing",
     "popular_science": "Popular Science",
 }
+
+export default categoryName;

@@ -1,7 +1,7 @@
 /* import { useState } from 'react'; */
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { HomePage, CategoriesPage, BlogingPage, ContactsPage, AboutPage, SignUpPage, SignInPage, ProfilePage, } from '../pages';
+import { HomePage, CategoriesPage, BlogingPage, ContactsPage, AboutPage, SignUpPage, SignInPage, ProfilePage, ArticlePage } from '../pages';
 
 function App() {
     return (
@@ -17,6 +17,7 @@ function App() {
                     <Route path="/signUp" element={<SignUpPage />} />
                     <Route path="/signIn" element={<SignInPage />} />
                     <Route path='/profile/:username' element={<ProfilePage />} />
+                    <Route path="/article/:id" element={<ArticlePage />} />
                 </Routes>
             </div>
         </Router>

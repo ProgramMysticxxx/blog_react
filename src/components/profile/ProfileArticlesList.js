@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import blogClient from "../../utils/blog_client";
 import { getTokenCookie } from "../../utils/cookie_manager";
+import { getArticleUrl } from "../../utils/urls";
 
 function ProfileArticleItem(article) {
 
     return (
         <div>
-            <b>{article.title}</b>
-            <p>{article.content}</p>
+            <a href={getArticleUrl(article.id)}>{article.title}</a>
         </div>
     );
 }

@@ -10,6 +10,7 @@ import ProfileTabs from './ProfileTabs';
 import EmptyPlaceholder from './EmptyPlaceholder';
 import ProfileArticlesList from './ProfileArticlesList';
 import ProfileFollowingList from './ProfileFollowingList';
+import { getAuthHeaders, isAuthorized } from '../../utils/auth_utils';
 
 export default function Profile({ username }) {
     const [profile, setProfile] = useState([]);
@@ -23,11 +24,7 @@ export default function Profile({ username }) {
     async function fetchProfile() {
         const client = await blogClient.init();
         try {
-            const response = await client.getProfile({ username: username }, null, getTokenCookie() ? {
-                headers: {
-                    'Authorization': `Token ${getTokenCookie()}`,
-                }
-            } : null);
+            const response = await client.getProfile({ username: username }, {}, getAuthHeaders());
             setProfile(response.data);
         } catch (error) {
             alert("Coult not fetch profile: " + error);
@@ -61,6 +58,21 @@ export default function Profile({ username }) {
         "Following",
     ];
 
+    async function toggleFollow() {
+        const client = await blogClient.init();
+        try {
+            let response = null;
+            if (profile.are_you_subscribed) {
+                response = await client.unsubscribe({ username: profile.username }, {}, getAuthHeaders());
+            } else {
+                response = await client.subscribe({ username: profile.username }, {}, getAuthHeaders());
+            }
+            const newProfile = { ...profile, are_you_subscribed: !profile.are_you_subscribed, subscribers_count: !profile.are_you_subscribed ? profile.subscribers_count + 1 : profile.subscribers_count - 1, };
+            setProfile(newProfile);
+        } catch (error) {
+            alert("Coult not toggle follow: " + error);
+        }
+    }
 
     return (
         <section className="profile">
@@ -76,8 +88,8 @@ export default function Profile({ username }) {
                                 </div>
                                 <p className="profile__text">{profile.bio}</p>
                             </div>
-                            {!profile.is_you && <button className="button button_follow">Follow</button>}
-                            {profile.is_you && <button className="button button_follow" onClick={logout}>Logout</button>}
+                            {isAuthorized && !profile.is_you && <button onClick={toggleFollow} className="button button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
+                            {isAuthorized && profile.is_you && <button className="button button_follow" onClick={logout}>Logout</button>}
                         </div>
                         <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} isYou={profile.is_you} />
                     </div>
@@ -89,13 +101,15 @@ export default function Profile({ username }) {
                             <p className="aside__descr">{profile.total_articles_rating}</p>
                             <h5 className="title title_aside title_plus">Registered:</h5>
                             <p className="aside__descr">{formatDate(profile.date_joined)}</p>
+                            <h5 className="title title_aside title_plus">Subscribers:</h5>
+                            <p className="aside__descr">{profile.subscribers_count}</p>
                             {/* <h5 className="title title_aside title_plus">Activity:</h5>
                             <p className="aside__descr">today at 23:26</p> */}
                         </div>
                     </aside>
                     {activeTab == 0 && <ProfileArticlesList username={username} />}
                     {activeTab == 1 && <ProfileArticlesList username={username} favorited={true} />}
-                    {activeTab == 2 && <ProfileFollowingList username={username} />}
+                    {activeTab == 2 && <ProfileFollowingList />}
                     {/* <EmptyPlaceholder what={whats[activeTab]} /> */}
                 </div>
             </div>

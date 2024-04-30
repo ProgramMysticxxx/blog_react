@@ -17,7 +17,7 @@ function Article(article) {
         <div class="item">
             {cover_url &&
                 <div class="item__img">
-                <a href="article.html">
+                <a href={getArticleUrl(id)}>
                     <img src={cover_url} alt="lamp" />
                 </a>
             </div>
