@@ -1,11 +1,15 @@
+@import '../../style/variables.scss';
+
 .profile {
     margin: 0 auto;
     padding: 100px 0;
+
     &__wrapper {
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 50px;
     }
+
     &__char {
         position: relative;
         display: flex;
@@ -13,16 +17,19 @@
         align-items: center;
         gap: 50px;
     }
+
     &__about {
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
+
     &__initial {
         display: flex;
         align-items: center;
         gap: 15px;
     }
+
     &__pablicname {
         font-weight: 500;
         font-size: 22px;
@@ -30,15 +37,18 @@
         opacity: 0.9;
         text-decoration: none;
     }
+
     &__username {
         font-weight: 500;
         font-size: 25px;
         color: $mainTextColor;
         text-decoration: none;
     }
+
     &__text {
         font-size: 20px;
     }
+
     &__img {
         height: 140px;
     }
@@ -50,10 +60,12 @@
     &__activity {
         position: relative;
         text-align: center;
+
         img {
             height: 350px;
             opacity: 0.8;
         }
+
         &__info {
             position: absolute;
             width: 100%;
@@ -73,6 +85,7 @@
         align-items: center;
         gap: 20px;
     }
+
     &__descr {
         font-size: 18px;
     }

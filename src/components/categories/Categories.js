@@ -1,39 +1,35 @@
+import categoryName from '../../utils/category_name';
+import { getCategoryUrl } from '../../utils/urls';
 import './categories.scss';
+function CategoryItem(category) {
+    return (
+        <li>
+            <a href={getCategoryUrl(category)} className={`category category_article category_${category}`}>{categoryName[category]}</a>
+        </li>
+    );
+}
 
-const Categories = () => {
-    return(
+function getCategoryText(category) {
+    return "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident nulla minima quasi eveniet modi cum maiores ad nihil neque, nesciunt, earum quia veritatis sapiente omnis assumenda. Quibusdam harum hic consectetur?\nProvident quasi autem eius cupiditate corporis.Odio dolor, alias eveniet molestias rem voluptatum labore ad repellendus architecto quas.Recusandae, itaque aliquid.Laborum, quidem perferendis?";
+}
+
+export default function Categories({ category }) {
+
+    return (
         <section className="categories">
             <div className="container container_main">
-                <div className="title title_blocks title_mb-30">All Categories</div>
+                <div className="title title_blocks title_mb-30">{categoryName[category] ?? "All Categories"}</div>
                 <div className="categories__wrapper">
                     <ul className="menu categoties_menu">
-                        <li>
-                            <a href="/" className="category category_article category_development">Development</a>
-                        </li>
-                        <li>
-                            <a href="/" className="category category_article category_administration">Administration</a>
-                        </li>
-                        <li>
-                            <a href="/" className="category category_article category_design">Design</a>
-                        </li>
-                        <li>
-                            <a href="/" className="category category_article category_management">Management</a>
-                        </li>
-                        <li>
-                            <a href="/" className="category category_article category_marketing">Marketing</a>
-                        </li>
-                        <li>
-                            <a href="/" className="category category_article category_popular-science">Popular Science</a>
-                        </li>
+                        {
+                            Object.keys(categoryName).filter(key => key != null && key != category).map((key, index) => CategoryItem(key))
+                        }
                     </ul>
                     <div className="categories__text">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident nulla minima quasi eveniet modi cum maiores ad nihil neque, nesciunt, earum quia veritatis sapiente omnis assumenda. Quibusdam harum hic consectetur?
-                        Provident quasi autem eius cupiditate corporis. Odio dolor, alias eveniet molestias rem voluptatum labore ad repellendus architecto quas. Recusandae, itaque aliquid. Laborum, quidem perferendis?
+                        {getCategoryText(category)}
                     </div>
                 </div>
             </div>
         </section>
-    )
+    );
 }
-
-export default Categories;
