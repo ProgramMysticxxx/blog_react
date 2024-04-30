@@ -100,3 +100,11 @@
 .form_comments {
     margin-top: 100px;
 }
+
+.form__editor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}

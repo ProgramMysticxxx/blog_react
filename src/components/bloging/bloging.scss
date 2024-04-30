@@ -11,3 +11,33 @@
         text-align: center;
     }
 }
+
+.editor__title {
+    width: 91%;
+    padding: 20px;
+    font-size: 18px;
+    &:focus {
+        outline: none;
+    }
+}
+
+.editor__tag {
+    padding: 10px;
+    border: 1px solid $navigationColor;
+    border-radius: 4px 0 0 4px;
+    &:focus {
+        outline: none;
+    }
+}
+
+.tags__info {
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 17.5px;
+}
+
+.add-tag__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
