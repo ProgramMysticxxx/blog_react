@@ -7,5 +7,8 @@ export function getArticleUrl(id) {
 }
 
 export function getCategoryUrl(category) {
-    return `/category/${category}`
+    if (!category || category === "null") {
+        return `/categories`;
+    }
+    return `/categories/${category}`
 }

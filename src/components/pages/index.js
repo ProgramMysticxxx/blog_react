@@ -5,5 +5,6 @@ import ContactsPage from "./ContactsPage";
 import AboutPage from "./AboutPage";
 import SignInPage from "./SignInPage";
 import SignUpPage from "./SignUpPage";
+import ProfilePage from "./ProfilePage";
 
-export {HomePage, CategoriesPage, BlogingPage, ContactsPage, AboutPage, SignUpPage, SignInPage};
+export { HomePage, CategoriesPage, BlogingPage, ContactsPage, AboutPage, SignUpPage, SignInPage, ProfilePage,};

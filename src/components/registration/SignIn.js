@@ -3,7 +3,7 @@ import './sign.scss';
 import logo from '../../resources/img/icons/logo_v1.svg';
 import { useId, useState } from 'react';
 import blogClient from '../../utils/blog_client';
-import { setTokenCookie } from '../../utils/cookie_manager';
+import { setTokenCookie, setUsernameCookie } from '../../utils/cookie_manager';
 
 const SignIn = () => {
     const usernameId = useId();
@@ -30,8 +30,9 @@ const SignIn = () => {
                 password: password,
             });
             const { user, token } = response.data;
-            alert('Successfully logged in. Token: ' + token);
+            // alert('Successfully logged in. Token: ' + token);
             setTokenCookie(token);
+            setUsernameCookie(user.username);
             document.location.href = '/';
         } catch (error) {
             alert('Error: ' + error);
