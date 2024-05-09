@@ -1,5 +1,6 @@
 .category {
     position: relative;
+    display: block;
     width: max-content;
     padding: 0 10px 0 30px;
     border: 1px solid;
@@ -28,6 +29,10 @@
         color: $titleColor;
         opacity: 0.99;
         font-size: 15px;
+    }
+
+    &_articles {
+        display: inline;
     }
 
     &_development {
