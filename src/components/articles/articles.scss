@@ -26,10 +26,17 @@
         padding: 30px 25px;
     }
     &__text {
-        max-height: 220px;
+        max-height: 210px;
         margin-bottom: 20px;
         font-weight: 400;
         font-size: 15.5px;
         line-height: 1.9;
+        overflow: hidden;
     }
 }
+
+.article__tagsbox {
+    display: flex;
+    gap: 10px;
+}
+
