@@ -137,4 +137,16 @@
             transform: scale(1.009);
         }
     }
+
+    &_delete {
+        background-color: transparent;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 10px 15px;
+        &:hover{
+            background-color: #b92929;
+            border: 1px solid #b92929;
+            color: $titleColor;
+        }
+    }
 }
