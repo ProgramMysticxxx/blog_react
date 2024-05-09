@@ -4,7 +4,7 @@ import './categories.scss';
 function CategoryItem(category) {
     return (
         <li>
-            <a href={getCategoryUrl(category)} className={`category category_article category_${category}`}>{categoryName[category]}</a>
+            <a href={getCategoryUrl(category)} className={`category category_article category_articles category_${category}`}>{categoryName[category]}</a>
         </li>
     );
 }
