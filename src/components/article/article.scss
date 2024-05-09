@@ -37,6 +37,12 @@
             }
         }
     }
+
+    &__panel {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 .rate {
@@ -60,7 +66,14 @@
     }
 
     &__img {
+        height: 100%;
+        width: 100%;
+        border-radius: 100%;
+    }
+
+    &__imgbox {
         height: 75px;
+        width: 75px;
     }
 
     &__username {
