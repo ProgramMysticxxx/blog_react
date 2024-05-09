@@ -37,7 +37,7 @@ const SignUp = () => {
                 password: password,
             });
             const { user, token } = response.data;
-            alert('Successfully registered. Token: ' + token);
+            // alert('Successfully registered. Token: ' + token);
             setTokenCookie(token);
             setUsernameCookie(user.username);
             document.location.href = '/';
@@ -65,9 +65,9 @@ const SignUp = () => {
                         <h5 className="title title_above">Username</h5>
                         <input id={usernameId} value={username} onInput={e => setUsername(e.target.value)} type="text" name="name" placeholder="Enter your name here" />
                         <h5 className="title title_above">Password</h5>
-                        <input id={passwordId} value={password} onInput={e => setPassword(e.target.value)} type="text" name="password" placeholder="Enter a strong password here" />
+                        <input type="password" name="password" placeholder="Enter a strong password here" />
                         <h5 className="title title_above">Repeat password</h5>
-                        <input id={confirmPasswordId} value={confirmPassword} onInput={e => setConfirmPassword(e.target.value)} type="text" name="password" placeholder="Repeat the password entered above here" />
+                        <input id={confirmPasswordId} value={confirmPassword} onInput={e => setConfirmPassword(e.target.value)} type="password" name="password" placeholder="Repeat the password entered above here" />
                         <button onClick={performSignUp} className="button button_sign">Sign Up</button>
                     </div>
                 </div>
