@@ -19,7 +19,7 @@ function Bloging() {
     const [newTagName, setNewTagName] = useState('');
 
     const categoryId = useId();
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState('development');
 
     async function createArticle() {
         if (title === '' || content === '') {
@@ -80,7 +80,9 @@ function Bloging() {
                             <button onClick={addTag} className="button button__add-tag">+</button>
                         </div>
                         <p className="tags__info">You added the following tags:</p>
-                        {tags.map((tag, index) => <button onClick={() => setTags(tags.filter((_, i) => i !== index))} key={index} className="button button__remove-tag">{tag}</button>)}
+                        <div className='tags__container'>
+                            {tags.map((tag, index) => <button onClick={() => setTags(tags.filter((_, i) => i !== index))} key={index} className="button button__remove-tag">#{tag}</button>)}
+                        </div>
                     </div>
                     <button onClick={createArticle} className="button button__publish">publish</button>
                 </div>}
