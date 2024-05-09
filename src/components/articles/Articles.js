@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './articles.scss';
 import blogClient from '../../utils/blog_client';
 import { formatDate } from '../../utils/date';
-import { getArticleUrl } from '../../utils/urls';
+import { getArticleUrl, getCategoryUrl } from '../../utils/urls';
 
 function Article(article) {
     const {
@@ -26,7 +26,7 @@ function Article(article) {
                 <p class="creator__data creator__data_article">{formatDate(created_at)}</p>
                 <h3 class="title title_article"><a href={getArticleUrl(id)}>{title}</a></h3>
                 <p class="item__text">{content}</p>
-                <div class={`category category_article category_${category}`}>{category}</div>
+                <a href={getCategoryUrl(category)} class={`category category_article category_${category}`}>{category}</a>
             </div>
         </div>
     );
