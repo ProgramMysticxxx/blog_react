@@ -37,11 +37,12 @@ function Articles({category}) {
 
     async function fetchArticles() {
         const client = await blogClient.init();
+        const category__name = category == "all" || !category ? undefined : category
         try {
             const response = await client.getArticles({
                 limit: 10,
                 ordering: '-created_at',
-                category__name: category ?? undefined,
+                category__name: category__name,
             });
             setArticles(response.data.results);
         } catch (error) {

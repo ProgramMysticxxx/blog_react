@@ -3,11 +3,12 @@ import Categories from '../categories/Categories';
 import Articles from '../articles/Articles';
 import Extra from "../extra/Extra";
 import Footer from "../footer/Footer";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function CategoriesPage() {
-    const { category: initialCategory } = useParams();
+    let { category: initialCategory } = useParams();
+    initialCategory ??= "all";
     const [category, setCategory] = useState(initialCategory);
     return (
         <>

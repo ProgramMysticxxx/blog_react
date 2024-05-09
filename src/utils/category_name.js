@@ -1,5 +1,5 @@
 const categoryName = {
-    null: "All Categories",
+    "all": "All Categories",
     "development": "Development",
     "administration": "Administration",
     "design": "Design",

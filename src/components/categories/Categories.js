@@ -9,7 +9,7 @@ function CategoryItem(category) {
     );
 }
 
-function getCategoryText(category) {
+function getCategoryText(_) {
     return "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident nulla minima quasi eveniet modi cum maiores ad nihil neque, nesciunt, earum quia veritatis sapiente omnis assumenda. Quibusdam harum hic consectetur?\nProvident quasi autem eius cupiditate corporis.Odio dolor, alias eveniet molestias rem voluptatum labore ad repellendus architecto quas.Recusandae, itaque aliquid.Laborum, quidem perferendis?";
 }
 
@@ -22,7 +22,7 @@ export default function Categories({ category }) {
                 <div className="categories__wrapper">
                     <ul className="menu categoties_menu">
                         {
-                            Object.keys(categoryName).filter(key => key != null && key != category).map((key, index) => CategoryItem(key))
+                            Object.keys(categoryName).filter(key => key !== category).map((key, index) => CategoryItem(key))
                         }
                     </ul>
                     <div className="categories__text">

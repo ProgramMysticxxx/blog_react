@@ -9,6 +9,7 @@ import axios from 'axios';
 
 
 function Bloging() {
+    const coverId = useId();
     const titleId = useId();
     const contentId = useId();
     const [title, setTitle] = useState('');
@@ -60,6 +61,7 @@ function Bloging() {
                 <p className="bloging__descr">Here, you can create your own articles, share your thoughts and ideas, and inform and educate other users. Give free rein to your creativity and experience to make this space vibrant and engaging!</p>
                 <h2 className="title title_mb-30">Create article</h2>
                 {isAuthorized() && <div className="form__editor">
+                    <input id={coverId} type='file' />
                     <input id={titleId} value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" placeholder="Title your article" className="editor__title" />
                     {/* <JoditEditor /> */}
                     <textarea style={{ minHeight: '300px' }} id={contentId} value={content} onChange={e => setContent(e.target.value)} type="textarea" name="title" placeholder="Content" className="editor__title" />
