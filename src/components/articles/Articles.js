@@ -37,7 +37,7 @@ function Articles({category}) {
 
     async function fetchArticles() {
         const client = await blogClient.init();
-        const category__name = category == "all" || !category ? undefined : category
+        const category__name = category === "all" || !category ? undefined : category
         try {
             const response = await client.getArticles({
                 limit: 10,

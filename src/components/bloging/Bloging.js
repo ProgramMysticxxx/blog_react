@@ -1,11 +1,8 @@
-import JoditEditor from 'jodit-react';
 import './bloging.scss';
 import { getAuthHeaders, isAuthorized } from '../../utils/auth_utils';
 import { useId, useState } from 'react';
 import { getArticleUrl } from '../../utils/urls';
 import blogClient from '../../utils/blog_client';
-import categoryName from '../../utils/category_name';
-import axios from 'axios';
 
 
 function Bloging() {
