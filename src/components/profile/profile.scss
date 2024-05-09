@@ -50,7 +50,15 @@
     }
 
     &__img {
+        height: 100%;
+        width: 100%;
+    }
+
+    &__imgbox {
         height: 140px;
+        width: 140px;
+        border-radius: 100%;
+        overflow: hidden;
     }
 
     &__aside {
