@@ -8,7 +8,9 @@ import { getProfileUrl } from "../../utils/urls";
 function ArticleCommentItem({comment}) {
     return (
         <div className="comments__comment" style={{paddingBottom: '20px'}}>
-            <img src={comment.author_avatar_url ?? iconIncognito} alt="inkognito" className="comments__img" />
+            <div className="comments__imgbox">
+                <img src={comment.author_avatar_url ?? iconIncognito} alt="inkognito" className="comments__img" />
+                </div>
             <div className="comments__content">
                 <a href={getProfileUrl(comment.author_username)} className="comments__username">@{comment.author_username}</a>
                 <div className="comments__content__wrapper">
