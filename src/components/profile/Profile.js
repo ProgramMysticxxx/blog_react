@@ -35,22 +35,6 @@ export default function Profile({ username }) {
         fetchProfile();
     }, []);
 
-
-    function clickOnBtn() {
-        const profileBtns = document.querySelectorAll('.button_profile');
-
-        profileBtns.forEach(button => {
-            button.addEventListener('click', () => {
-                profileBtns.forEach(btn => {
-                    if (btn.classList.contains('button_profile_active')) {
-                        btn.classList.remove('button_profile_active');
-                    }
-                });
-                button.classList.add('button_profile_active');
-            });
-        });
-    }
-
     const [activeTab, setActiveTab] = useState(0);
     const whats = [
         "Articles",
@@ -59,6 +43,10 @@ export default function Profile({ username }) {
     ];
 
     async function toggleFollow() {
+        if (!isAuthorized()) {
+            return;
+        }
+
         const client = await blogClient.init();
         try {
             let response = null;
@@ -80,7 +68,9 @@ export default function Profile({ username }) {
                 <div className="profile__wrapper">
                     <div className="profile__main">
                         <div className="profile__char">
-                            <img src={profile.avatar_url} className="profile__img" />
+                            <div className='profile__imgbox'>
+                                <img src={profile.avatar_url} className="profile__img" />
+                            </div>
                             <div className="profile__about">
                                 <div className="profile__initial">
                                     {profile.public_name && <div className="profile__pablicname">{profile.public_name}</div>}
@@ -88,8 +78,8 @@ export default function Profile({ username }) {
                                 </div>
                                 <p className="profile__text">{profile.bio}</p>
                             </div>
-                            {isAuthorized && !profile.is_you && <button onClick={toggleFollow} className="button button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
-                            {isAuthorized && profile.is_you && <button className="button button_follow" onClick={logout}>Logout</button>}
+                            {isAuthorized() && !profile.is_you && <button onClick={toggleFollow} className="button button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
+                            {isAuthorized() && profile.is_you && <button className="button button_follow" onClick={logout}>Logout</button>}
                         </div>
                         <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} isYou={profile.is_you} />
                     </div>
