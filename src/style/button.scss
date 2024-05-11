@@ -78,12 +78,28 @@
     }
 
     &_follow {
-        position: absolute;
-        top: 10px;
-        right: 40px;
+        // position: absolute;
+        // top: 10px;
+        // right: 40px;
         font-size: 20px;
         font-weight: 500;
         padding: 10px 15px;
+        border: 1px solid $navigationColor;
+        &:hover{
+            background-color: #A1C690;
+            border: 1px solid #A1C690;
+            color: $titleColor;
+        }
+    }
+
+    &_edit {
+        // position: absolute;
+        // top: 10px;
+        // right: 40px;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 10px 15px;
+        border: 1px solid $navigationColor;
         &:hover{
             background-color: #A1C690;
             border: 1px solid #A1C690;
