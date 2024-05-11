@@ -101,16 +101,19 @@ export default function Article({ id }) {
     async function deleteArticle() {
         const client = await blogClient.init();
         try {
-            await client.deleteArticle({id: article.id}, {}, getAuthHeaders());
-            window.location = '/';  
+            await client.deleteArticle({ id: article.id }, {}, getAuthHeaders());
+            window.location = '/';
         } catch (error) {
             alert("Could not delete article: " + error);
         }
     }
 
-    useEffect(() => {
-        fetchArticle();
-    }, []);
+    useEffect(
+        () => {
+            fetchArticle();
+        },
+        [],
+    );
 
     return (
         <section className="article">

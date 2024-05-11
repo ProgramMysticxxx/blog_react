@@ -2,6 +2,8 @@ import { useEffect, useId, useState } from 'react';
 import './edit_profile.scss';
 import blogClient from '../../utils/blog_client';
 import { getAuthHeaders } from '../../utils/auth_utils';
+import { getTokenCookie } from '../../utils/cookie_manager';
+import iconIncognito from '../../resources/img/icons/icon-incognito.svg';
 
 const SaveStatus = {
     NONE: 0,
@@ -26,20 +28,41 @@ async function fetchProfile(username, setProfile) {
     }
 }
 
-async function saveProfile(profile, newData, setSaveStatus) {
+async function saveProfile(
+    profile,
+    newData,
+    setSaveStatus,
+    setProfile,
+) {
     setSaveStatus(SaveStatus.SAVING);
     let client = await blogClient.init();
     try {
-        await client.partialUpdateProfile(
+        let uploadedAvatar = undefined;
+        if (!newData.delete_avatar && newData.avatar) {
+            let result = await client.uploadImage(
+                {},
+                { image: newData.avatar },
+                {
+                    headers: {
+                        'Authorization': `Token ${getTokenCookie()}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                },
+            );
+            uploadedAvatar = result.data;
+        }
+        let result = await client.partialUpdateProfile(
             {
                 username: profile.username,
             },
             {
                 public_name: newData.public_name ? newData.public_name : undefined,
                 bio: newData.bio ? newData.bio : undefined,
+                avatar: newData.delete_avatar === true ? null : uploadedAvatar?.id,
             },
             getAuthHeaders(),
         );
+        setProfile(result.data);
         setSaveStatus(SaveStatus.SUCCESS);
     } catch (error) {
         setSaveStatus(SaveStatus.ERROR);
@@ -49,6 +72,12 @@ async function saveProfile(profile, newData, setSaveStatus) {
 
 export default function EditProfile({ username }) {
     let [profile, setProfile] = useState(null);
+
+    let avatarId = useId();
+    let [avatar, setAvatar] = useState(null);
+
+    let deleteAvatarId = useId();
+    let [deleteAvatar, setDeleteAvatar] = useState(false);
 
     let publicNameId = useId();
     let [publicName, setPublicName] = useState('');
@@ -79,9 +108,18 @@ export default function EditProfile({ username }) {
             {
                 public_name: publicName,
                 bio: bio,
+                avatar: avatar,
+                delete_avatar: deleteAvatar,
             },
             setSaveStatus,
+            setProfile,
         );
+    }
+
+    function onClearClick() {
+        setAvatar(null);
+        let avatarInput = document.getElementById(avatarId);
+        avatarInput.value = null;
     }
 
 
@@ -101,8 +139,12 @@ export default function EditProfile({ username }) {
     return (
         <div className="edit-profile">
             <h1>Edit Profile</h1>
-            <img alt="avatar" className="edit-profile__avatar" src={profile.avatar_url} />
-            <label>New avatar <input type='file' /></label>
+            <img alt="avatar" className="edit-profile__avatar" src={profile.avatar_url ?? iconIncognito} />
+            <label>
+                New avatar <input id={avatarId} onChange={(e) => setAvatar(e.target.files[0])} type='file' />
+                <button onClick={onClearClick}>Clear</button>
+            </label>
+            <label>Delete avatar? <input id={deleteAvatarId} type='checkbox' value={deleteAvatar} onChange={(e) => setDeleteAvatar(e.target.checked)} /></label>
             <input type="text" placeholder="Username" disabled />
             <input type="email" placeholder="Email" disabled />
             <input id={publicNameId} value={publicName} onChange={(e) => setPublicName(e.target.value)} type="text" placeholder="Public name" />

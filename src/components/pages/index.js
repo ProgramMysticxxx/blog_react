@@ -8,5 +8,18 @@ import SignUpPage from "./SignUpPage";
 import ProfilePage from "./ProfilePage";
 import ArticlePage from "./ArticlePage";
 import EditProfilePage from "./EditProfilePage";
+import SearchArticlesPage from "./SearchArticlesPage";
 
-export { HomePage, CategoriesPage, BlogingPage, ContactsPage, AboutPage, SignUpPage, SignInPage, ProfilePage, ArticlePage, EditProfilePage };
+export {
+    HomePage,
+    CategoriesPage,
+    BlogingPage,
+    ContactsPage,
+    AboutPage,
+    SignUpPage,
+    SignInPage,
+    ProfilePage,
+    ArticlePage,
+    EditProfilePage,
+    SearchArticlesPage,
+};

@@ -1,0 +1,13 @@
+.search-articles {
+    display: flex;
+    flex-direction: row;
+    padding: 24px;
+
+    input {
+       flex: 1; 
+    }
+}
+
+.articles-order {
+    padding: 24px;
+}

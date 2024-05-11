@@ -4,7 +4,7 @@ export function getAuthHeaders() {
     return getTokenCookie() ? {
         headers: {
             'Authorization': `Token ${getTokenCookie()}`,
-        }
+        },
     } : null;
 }
 
