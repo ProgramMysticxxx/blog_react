@@ -40,7 +40,7 @@ function Header() {
                     <Navbar />
                     <div className="posts header__posts">
                         {editorChoice[0] &&
-                            <div className="posts__item posts__item_main" style={ editorChoice[0].cover_url && { backgroundImage: `url(${editorChoice[0]?.cover_url})` }}>
+                            <div className="posts__item posts__item_main" style={editorChoice[0].cover_url && { backgroundImage: `url(${editorChoice[0]?.cover_url})` }}>
                                 <div className="posts__content posts__content_main">
                                     <a href={getCategoryUrl(editorChoice[0]?.category)} className={`category posts__category category_main category_${editorChoice[0]?.category}`}>{editorChoice[0]?.category}</a>
                                     <h1 className="title title_main">
@@ -63,7 +63,7 @@ function Header() {
                                 </div>
                             </div>}
                         {editorChoice[1] &&
-                            <div className="posts__item posts__item_top"  style={ editorChoice[1].cover_url && { backgroundImage: `url(${editorChoice[1]?.cover_url})` }}>
+                            <div className="posts__item posts__item_top" style={editorChoice[1].cover_url && { backgroundImage: `url(${editorChoice[1]?.cover_url})` }}>
                                 <div className="posts__content">
                                     <a href={getCategoryUrl(editorChoice[1]?.category)} className={`category posts__category category_${editorChoice[1]?.category}`}>{editorChoice[1]?.category}</a>
                                     <h2 className="title title_mini">
@@ -81,7 +81,7 @@ function Header() {
                             </div>
                         }
                         {editorChoice[2] &&
-                            <div className="posts__item posts__item_bottom"  style={ editorChoice[2].cover_url && { backgroundImage: `url(${editorChoice[2]?.cover_url})` }}>
+                            <div className="posts__item posts__item_bottom" style={editorChoice[2].cover_url && { backgroundImage: `url(${editorChoice[2]?.cover_url})` }}>
                                 <div className="posts__content">
                                     <a href={getCategoryUrl(editorChoice[2]?.category)} className={`category posts__category category_${editorChoice[2]?.category}`}>{editorChoice[2]?.category}</a>
                                     <h2 className="title title_mini">

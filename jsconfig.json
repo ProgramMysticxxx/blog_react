@@ -8,7 +8,7 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "strict": true,
-        "alwaysStrict": true,
+        "alwaysStrict": true
     },
     "exclude": [
         "node_modules",
