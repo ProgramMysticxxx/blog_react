@@ -1,6 +1,7 @@
 import './footer.scss';
 
 import email from '../../resources/img/icons/icon-email.svg';
+import { getCategoryUrl } from '../../utils/urls';
 
 function Footer() {
     return(
@@ -16,16 +17,16 @@ function Footer() {
                                     <a href="/" className="menu__link">Home</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Categories</a>
+                                    <a href="/categories" className="menu__link">Categories</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Bloging</a>
+                                    <a href="/bloging" className="menu__link">Bloging</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">About</a>
+                                    <a href="/about" className="menu__link">About</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Contact</a>
+                                    <a href="/contacts" className="menu__link">Contacts</a>
                                 </li>
                             </ul>
                         </div>
@@ -34,22 +35,22 @@ function Footer() {
                             <hr className="divider footer__divider divider_footer" />
                             <ul className="menu footer__nav__menu">
                                 <li>
-                                    <a href="/" className="menu__link">Development</a>
+                                    <a href={getCategoryUrl('development')} className="menu__link">Development</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Administration</a>
+                                    <a href={getCategoryUrl('administration')} className="menu__link">Administration</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Design</a>
+                                    <a href={getCategoryUrl('design')} className="menu__link">Design</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Management</a>
+                                    <a href={getCategoryUrl('management')} className="menu__link">Management</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Marketing</a>
+                                    <a href={getCategoryUrl('marketing')} className="menu__link">Marketing</a>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Popular Science</a>
+                                    <a href={getCategoryUrl('popular_science')} className="menu__link">Popular Science</a>
                                 </li>
                             </ul>
                         </div>
