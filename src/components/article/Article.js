@@ -37,25 +37,43 @@ export default function Article({ id }) {
         try {
             let response = null;
             if (rate === true || rate === false) {
-                response = await client.rateArticle({ id: id, }, {
-                    is_positive: rate,
-                }, getAuthHeaders());
+                response = await client.rateArticle(
+                    { id: id, },
+                    {
+                        is_positive: rate,
+                    },
+                    getAuthHeaders(),
+                );
             } else {
-                response = await client.unrateArticle({
-                    id: id,
-                }, {}, getAuthHeaders());
+                response = await client.unrateArticle(
+                    {
+                        id: id,
+                    },
+                    {},
+                    getAuthHeaders(),
+                );
             }
-            let newTotalRate = article.rating;
-            if (rate === true && rate !== article.your_rate) {
-                newTotalRate += 1;
-            } else if (rate === false && rate !== article.your_rate) {
-                newTotalRate -= 1;
-            } else if (rate === null && article.your_rate === true) {
-                newTotalRate -= 1;
-            } else if (rate === null && article.your_rate === false) {
-                newTotalRate += 1;
+            let newRating = article.rating;
+            // ⚠️ GOVNO CODE ⚠️
+            if (rate === true) {
+                if (article.your_rate === false) {
+                    newRating += 1;
+                }
+                newRating += 1;
+            } else if (rate === false) {
+                if (article.your_rate === true) {
+                    newRating -= 1;
+                }
+                newRating -= 1;
+            } else {
+                if (article.your_rate === true) {
+                    newRating -= 1;
+                } else if (article.your_rate === false) {
+                    newRating += 1;
+                }
             }
-            const newArticle = { ...article, your_rate: rate, rating: newTotalRate };
+            //////////////////////////////////////////
+            const newArticle = { ...article, your_rate: rate, rating: newRating };
             setArticle(newArticle);
         } catch (error) {
             alert("Could not change rating: " + error);
