@@ -141,7 +141,7 @@ export default function EditProfile({ username }) {
             <h1>Edit Profile</h1>
             <img alt="avatar" className="edit-profile__avatar" src={profile.avatar_url ?? iconIncognito} />
             <label>
-                New avatar <input id={avatarId} onChange={(e) => setAvatar(e.target.files[0])} type='file' />
+                New avatar <input id={avatarId} onChange={(e) => setAvatar(e.target.files[0])} type='file' accept='image/*' />
                 <button onClick={onClearClick}>Clear</button>
             </label>
             <label>Delete avatar? <input id={deleteAvatarId} type='checkbox' value={deleteAvatar} onChange={(e) => setDeleteAvatar(e.target.checked)} /></label>
