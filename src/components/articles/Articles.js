@@ -3,8 +3,17 @@ import './articles.scss';
 import blogClient from '../../utils/blog_client';
 import { formatDate } from '../../utils/date';
 import { getArticleUrl, getCategoryUrl } from '../../utils/urls';
+import DOMPurify from 'dompurify';
+import { extractTextContent } from '../../utils/dom_utils';
 
 function Article(article) {
+    // Prevent XSS
+    const sanitized = DOMPurify.sanitize(article.content);
+
+    // Leave only text content
+    const textContent = extractTextContent(sanitized);
+    article.content = textContent;
+
     const {
         id,
         cover_url,
@@ -13,6 +22,7 @@ function Article(article) {
         content,
         created_at,
     } = article;
+
     return (
         <div class="item">
             {cover_url &&
@@ -44,7 +54,8 @@ function Articles({ category }) {
                 ordering: '-created_at',
                 category__name: category__name,
             });
-            setArticles(response.data.results);
+            const articles = response.data.results
+            setArticles(articles);
         } catch (error) {
             alert("Coult not fetch articles: " + error);
         }
@@ -60,9 +71,9 @@ function Articles({ category }) {
     return (
         <section class="articlesCarusel">
             {/* <div class="container container_main"> */}
-                <div class="articlesCarusel__items">
-                    {articles.map(article => Article(article))}
-                </div>
+            <div class="articlesCarusel__items">
+                {articles.map(article => Article(article))}
+            </div>
             {/* </div> */}
         </section>
     );

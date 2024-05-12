@@ -7,6 +7,7 @@ import categoryName from '../../utils/category_name';
 import iconLike from '../../resources/img/icons/icon-like.svg';
 import iconBookmark from '../../resources/img/icons/icon-bookmark.svg';
 import ArticleCommentList from './ArticleCommentList';
+import DOMPurify from 'dompurify';
 
 export default function Article({ id }) {
     const [article, setArticle] = useState({});
@@ -17,7 +18,10 @@ export default function Article({ id }) {
             const response = await client.getArticle({
                 id: id,
             }, {}, getAuthHeaders());
-            setArticle(response.data);
+            const article = response.data;
+            // Prevent XSS
+            article.content = DOMPurify.sanitize(article.content);
+            setArticle(article);
         } catch (error) {
             alert("Could not fetch article: " + error);
         }
@@ -131,7 +135,7 @@ export default function Article({ id }) {
                     </div>
                 }
                 <div className="article__content">
-                    {article.content}
+                    <div dangerouslySetInnerHTML={{ __html: article.content }} />
                 </div>
                 <div className="article__panel">
                     <div className="rate">

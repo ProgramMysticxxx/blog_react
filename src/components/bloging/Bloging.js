@@ -1,9 +1,10 @@
 import './bloging.scss';
 import { getAuthHeaders, isAuthorized } from '../../utils/auth_utils';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { getArticleUrl } from '../../utils/urls';
 import blogClient from '../../utils/blog_client';
 import { getTokenCookie } from '../../utils/cookie_manager';
+import JoditEditor from 'jodit-react';
 
 const PublishStatus = {
     NONE: 0,
@@ -21,6 +22,7 @@ function Bloging() {
     const [title, setTitle] = useState('');
 
     const contentId = useId();
+    const contentEditorRef = useRef();
     const [content, setContent] = useState('');
 
     const newTagId = useId();
@@ -107,6 +109,11 @@ function Bloging() {
         document.getElementById(coverId).value = null;
     }
 
+    const config = {
+        readonly: false,
+        placeholder: 'Write your article...',
+    };
+
     return (
         <section className="bloging">
             <div className="container">
@@ -122,8 +129,15 @@ function Bloging() {
                         <input id={coverId} onChange={onFileChange} type='file' accept='image/*' />
                         <button onClick={onClearClick}>Clear</button>
                         <input id={titleId} value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" placeholder="Title your article" className="editor__title" />
-                        {/* <JoditEditor /> */}
-                        <textarea style={{ minHeight: '300px' }} id={contentId} value={content} onChange={e => setContent(e.target.value)} type="textarea" name="title" placeholder="Content" className="editor__title" />
+                        <JoditEditor
+                            ref={contentEditorRef}
+                            // onChange={value => setContent(value)}
+                            onBlur={value => setContent(value)}
+                            config={config}
+                            tabIndex={1}
+                            value={content}
+                        />
+                        {/* <textarea style={{ minHeight: '300px' }} id={contentId} value={content} onChange={e => setContent(e.target.value)} type="textarea" name="title" placeholder="Content" className="editor__title" /> */}
                         <div className="select_category">
                             <label for="categories">Select category:</label>
                             <select id={categoryId} name="categories" value={category} onChange={e => setCategory(e.target.value)} >
