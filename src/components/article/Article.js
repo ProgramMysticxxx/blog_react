@@ -125,6 +125,11 @@ export default function Article({ id }) {
                     <div className="article__date">{formatDate(article.updated_at)}</div>
                     <div className={`category category_article category_${article.category}`}>{categoryName[article.category]}</div>
                 </div>
+                {article.cover_url &&
+                    <div class="article__cover__wrapper">
+                        <img className="article__cover" src={article.cover_url} alt="cover" />
+                    </div>
+                }
                 <div className="article__content">
                     {article.content}
                 </div>
