@@ -88,10 +88,10 @@ function Navbar() {
             <hr className="divider navbar__divider" />
             <ul className="menu navbar__menu">
                 <li>
-                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/" className="menu__link">Home</NavLink>
+                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/" className="menu__link menu__link-nav">Home</NavLink>
                 </li>
                 <li className="li_sub-menu">
-                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/categories" className="menu__link">Categories</NavLink>
+                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/categories" className="menu__link menu__link-nav">Categories</NavLink>
                     <ul className="sub-menu">
                         <li>
                             <a href={getCategoryUrl("development")} className="menu__link sub-menu__link">Development</a>
@@ -114,13 +114,13 @@ function Navbar() {
                     </ul>
                 </li>
                 <li>
-                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/bloging" className="menu__link">Bloging</NavLink>
+                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/bloging" className="menu__link menu__link-nav">Bloging</NavLink>
                 </li>
                 <li>
-                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/about" className="menu__link">About</NavLink>
+                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/about" className="menu__link menu__link-nav">About</NavLink>
                 </li>
                 <li>
-                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/contacts" className="menu__link">Contacts</NavLink>
+                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/contacts" className="menu__link menu__link-nav">Contacts</NavLink>
                 </li>
             </ul>
         </nav>

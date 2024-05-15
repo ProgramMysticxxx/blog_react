@@ -17,16 +17,15 @@
     &__wrapper {
         position: relative;
         display: flex;
+        justify-content: space-between;
         flex-direction: column;
-        height: 813px;
+        height: 800px;
 
     }
 
     &__posts {
-        position: absolute;
-        bottom: 0;
         display: grid;
-        grid-template-columns: 33.333% 33.333% 33.333%;
+        grid-template-columns: 33.33% 33.33% 33.33%;
         grid-template-rows: 282px 282px;
     }
 }

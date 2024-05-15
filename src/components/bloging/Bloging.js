@@ -6,6 +6,8 @@ import blogClient from '../../utils/blog_client';
 import { getTokenCookie } from '../../utils/cookie_manager';
 import JoditEditor from 'jodit-react';
 
+import coverPlug from '../../resources/img/bloging/plug.jpg';
+
 const PublishStatus = {
     NONE: 0,
     LOADING: 1,
@@ -17,6 +19,7 @@ function Bloging() {
     const coverId = useId();
     const [cover, setCover] = useState();
     const [coverUrl, setCoverUrl] = useState();
+    const [fileName, setFileName] = useState('File not selected');
 
     const titleId = useId();
     const [title, setTitle] = useState('');
@@ -92,16 +95,18 @@ function Bloging() {
         setNewTagName('');
     }
 
-    function onFileChange(e) {
-        const file = e.target.files[0];
+    const onFileChange = (event) => {
+        const file = event.target.files[0];
+        setFileName(file ? file.name : 'File not selected');
         if (file) {
             setCover(file);
             setCoverUrl(URL.createObjectURL(file));
         }
-    }
+    };
 
     function onClearClick() {
         setCover(null);
+        setFileName('File not selected');
         if (coverUrl) {
             URL.revokeObjectURL(coverUrl);
             setCoverUrl(null);
@@ -122,12 +127,20 @@ function Bloging() {
                 <h2 className="title title_mb-30">Create article</h2>
                 {isAuthorized() &&
                     <div className="form__editor">
-                        <h2>Cover:</h2>
-                        {cover && coverUrl &&
-                            <img src={coverUrl} className="article__cover" alt='cover' />
-                        }
-                        <input id={coverId} onChange={onFileChange} type='file' accept='image/*' />
-                        <button onClick={onClearClick}>Clear</button>
+                        <h4 className="title title_bloging_point">Add a cover image for your article (optional):</h4>
+                        <div className="cover__img">
+                            <img src={coverUrl || coverPlug} className="article__cover" alt='cover' />
+                        </div>
+                        <div className="cover__status">
+                            <span id="file-name">{fileName}</span>
+                            <div className="cover__btns">
+                                <label htmlFor={coverId} class="button button_cover">
+                                    Choose file
+                                </label>
+                                <input id={coverId} onChange={onFileChange} type='file' />
+                                <button onClick={onClearClick} className='button button_cover'>Delete file</button>
+                            </div>
+                        </div>
                         <input id={titleId} value={title} onChange={e => setTitle(e.target.value)} type="text" name="title" placeholder="Title your article" className="editor__title" />
                         <JoditEditor
                             ref={contentEditorRef}
@@ -138,23 +151,26 @@ function Bloging() {
                             value={content}
                         />
                         {/* <textarea style={{ minHeight: '300px' }} id={contentId} value={content} onChange={e => setContent(e.target.value)} type="textarea" name="title" placeholder="Content" className="editor__title" /> */}
-                        <div className="select_category">
-                            <label for="categories">Select category:</label>
-                            <select id={categoryId} name="categories" value={category} onChange={e => setCategory(e.target.value)} >
-                                <option value="development">Development</option>
-                                <option value="administration">Administration</option>
-                                <option value="design">Design</option>
-                                <option value="management">Management</option>
-                                <option value="marketing">Marketing</option>
-                                <option value="popular_science">Popular Science</option>
-                            </select>
-                        </div>
-                        <div className="add-tag__wrapper">
-                            <div className="add-teg_input">
+                        <div className="points__wrapper">
+                            <div className="select_category">
+                                <label htmlFor="categories" className="title title_bloging_point">Select category:</label>
+                                <select id={categoryId} name="categories" value={category} onChange={e => setCategory(e.target.value)} >
+                                    <option value="development">Development</option>
+                                    <option value="administration">Administration</option>
+                                    <option value="design">Design</option>
+                                    <option value="management">Management</option>
+                                    <option value="marketing">Marketing</option>
+                                    <option value="popular_science">Popular Science</option>
+                                </select>
+                            </div>
+                            <div className="add-teg__input">
+                                <label htmlFor="tag" className="title title_bloging_point">Add tags (optional):</label>
                                 <input id={newTagId} value={newTagName} onChange={e => setNewTagName(e.target.value)} type="text" name="tag" placeholder="Tag your article" className="editor__tag" />
                                 <button onClick={addTag} className="button button__add-tag">+</button>
                             </div>
-                            <p className="tags__info">You added the following tags:</p>
+                        </div>
+                        <div className="add-tag__box">
+                            <h4 className="title title_bloging_point">You added the following tags:</h4>
                             <div className='tags__container'>
                                 {tags.map((tag, index) => <button onClick={() => setTags(tags.filter((_, i) => i !== index))} key={index} className="button button__remove-tag">#{tag}</button>)}
                             </div>

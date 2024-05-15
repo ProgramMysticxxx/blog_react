@@ -9,6 +9,8 @@ export default function MiniProfile() {
     }
 
     return (
-        <button onClick={goToProfile}>Go to profile</button>
+        <div className="mini-profil">
+            <button onClick={goToProfile} className="button button_mini-profile">Go to profile</button>
+        </div>
     );
 }

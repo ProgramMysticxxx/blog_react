@@ -4,7 +4,10 @@ import blogClient from '../../utils/blog_client';
 import { getAuthHeaders, isAuthorized } from '../../utils/auth_utils';
 import { formatDate } from '../../utils/date';
 import categoryName from '../../utils/category_name';
-import iconLike from '../../resources/img/icons/icon-like.svg';
+import iconLike from '../../resources/img/icons/like-dislike/icon-illuminate-like.png';
+import iconLikeActive from '../../resources/img/icons/like-dislike/icon-illuminate-like-active.png';
+import iconDisLike from '../../resources/img/icons/like-dislike/icon-illuminate-dislike.png';
+import iconDisLikeActive from '../../resources/img/icons/like-dislike/icon-illuminate-dislike-active.png';
 import iconBookmark from '../../resources/img/icons/icon-bookmark.svg';
 import ArticleCommentList from './ArticleCommentList';
 import DOMPurify from 'dompurify';
@@ -157,13 +160,15 @@ export default function Article({ id }) {
                 </div>
                 <div className="article__panel">
                     <div className="rate">
-                        <img onClick={like} src={iconLike} alt="like" className="rate__rating" style={{ background: article.your_rate === true && "green" }} />
-                        <img onClick={dislike} src={iconLike} alt="dislike" className="rate__rating" style={{ background: article.your_rate === false && "red" }} />
+                        <img onClick={like} src={article.your_rate ? iconLikeActive : iconLike} alt="like" className="rate__like" />
+                        <img onClick={dislike} src={article.your_rate ? iconDisLikeActive : iconDisLike} alt="dislike" className="rate__dislike" />
                         <div className="rate__rating">{article.rating}</div>
-                        <div style={{ width: "2px" }} />
-                        <img onClick={toggleBookmark} src={iconBookmark} alt="bookmark" className="rate__rating" style={{ background: article.is_your_bookmark && "yellow" }} />
+                        <img onClick={toggleBookmark} src={iconBookmark} alt="bookmark" className="rate__bookmark" style={{ background: article.is_your_bookmark && "yellow" }} />
                     </div>
-                    {article.you_author && <button onClick={deleteArticle} className="button button_delete">Delete Article</button>}
+                    <div className="change-article">
+                        {article.you_author && <button /* onClick={editArticle} */ className="button button_change button_edit">Edit Article</button>}
+                        {article.you_author && <button onClick={deleteArticle} className="button button_change button_delete">Delete Article</button>}
+                    </div>
                 </div>
                 <div className="article__tags">
                     <h3 className="title">Post Tags</h3>

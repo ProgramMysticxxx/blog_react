@@ -1,11 +1,15 @@
+@import '../../style/variables.scss';
+
 .categories {
-    padding: 100px 0;
+    padding: 100px 0 0;
+
     &__wrapper {
         display: flex;
         justify-content: space-around;
         align-items: center;
         gap: 150px;
     }
+
     &__text {
         width: 50%;
         margin-right: 100px;
@@ -14,4 +18,79 @@
         line-height: 2.2;
         text-align: center;
     }
+
+    &__aside {
+        margin-right: 30px;
+        width: 350px;
+        height: 800px;
+        border-right: 1px solid $decorColor;
+        &__list {
+            width: 100%;
+            padding: 0 15px;
+        }
+    }
+}
+
+.tag-count {
+    font-weight: 500;
+    font-size: 18px;
+    color: $decorColor;
+}
+
+.filter-panel {
+    margin-top: 75px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 40px;
+}
+
+.real-checkbox {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.real-checkbox:focus + .custom-checkbox {
+    box-shadow: 0px 0px 0px 1px $mainTextColor;
+}
+
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    background: #fff;
+    border: 1px solid $mainTextColor;
+    border-radius: 4px;
+    vertical-align: sub;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.custom-checkbox::before {
+    content: '';
+    display: inline;
+    width: 13px;
+    height: 13px;
+    background: url("../../resources/img/icons/icon-check-mark.png") center center/contain no-repeat;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    margin-top: 1px;
+    transition: .2 ease-in;
+}
+
+.real-checkbox:checked + .custom-checkbox::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.checkbox__text {
+    display: inline;
+    font-size: 19px;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+    cursor: pointer;
 }
