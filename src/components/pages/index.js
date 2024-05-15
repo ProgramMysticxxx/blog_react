@@ -9,6 +9,7 @@ import ProfilePage from "./ProfilePage";
 import ArticlePage from "./ArticlePage";
 import EditProfilePage from "./EditProfilePage";
 import SearchArticlesPage from "./SearchArticlesPage";
+import EditArticlePage from "./EditArticlePage";
 
 export {
     HomePage,
@@ -22,4 +23,5 @@ export {
     ArticlePage,
     EditProfilePage,
     SearchArticlesPage,
+    EditArticlePage,
 };

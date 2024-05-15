@@ -1,7 +1,7 @@
 /* import { useState } from 'react'; */
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { HomePage, CategoriesPage, BlogingPage, ContactsPage, AboutPage, SignUpPage, SignInPage, ProfilePage, ArticlePage, EditProfilePage, SearchArticlesPage } from '../pages';
+import { HomePage, CategoriesPage, BlogingPage, ContactsPage, AboutPage, SignUpPage, SignInPage, ProfilePage, ArticlePage, EditProfilePage, SearchArticlesPage, EditArticlePage } from '../pages';
 
 function App() {
     return (
@@ -18,6 +18,7 @@ function App() {
                     <Route path="/signIn" element={<SignInPage />} />
                     <Route path='/profile/:username' element={<ProfilePage />} />
                     <Route path='/profile/:username/edit' element={<EditProfilePage />} />
+                    <Route path="/article/:id/edit" element={<EditArticlePage />} />
                     <Route path="/article/:id" element={<ArticlePage />} />
                     <Route path='/articles' element={<SearchArticlesPage />} />
                 </Routes>

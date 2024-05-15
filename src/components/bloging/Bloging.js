@@ -13,7 +13,7 @@ const PublishStatus = {
     ERROR: 3,
 };
 
-function Bloging() {
+function Bloging({ id }) {
     const coverId = useId();
     const [cover, setCover] = useState();
     const [coverUrl, setCoverUrl] = useState();
@@ -35,7 +35,7 @@ function Bloging() {
 
     const [publishStatus, setPublishStatus] = useState(PublishStatus.NONE);
 
-    async function createArticle() {
+    async function createArticle({ updateId, originalImageId }) {
         setPublishStatus(PublishStatus.LOADING);
 
         if (title === '' || content === '') {
@@ -60,18 +60,32 @@ function Bloging() {
                 );
                 const image = imageResponse.data;
                 imageId = image.id;
+            } else if (id && originalImageId) {
+                imageId = originalImageId;
             }
-            const response = await client.createArticle(
-                {},
-                {
-                    title: title,
-                    content: content,
-                    tags: tags,
-                    category: category,
-                    cover: imageId ? imageId : undefined,
-                },
-                getAuthHeaders(),
-            );
+            const response = updateId ?
+                await client.updateArticle(
+                    { id: updateId },
+                    {
+                        title: title,
+                        content: content,
+                        tags: tags,
+                        category: category,
+                        cover: imageId ? imageId : null,
+                    },
+                    getAuthHeaders(),
+                )
+                : await client.createArticle(
+                    {},
+                    {
+                        title: title,
+                        content: content,
+                        tags: tags,
+                        category: category,
+                        cover: imageId ? imageId : undefined,
+                    },
+                    getAuthHeaders(),
+                );
             setTitle('');
             setContent('');
             setTags([]);
@@ -79,7 +93,7 @@ function Bloging() {
             window.location = getArticleUrl(response.data.id);
         } catch (error) {
             console.log(error);
-            alert("Could not create article: " + error);
+            alert(`Could not ${updateId ? 'update' : 'create'} article: ${error}`);
             setPublishStatus(PublishStatus.ERROR);
         }
     }
@@ -106,6 +120,7 @@ function Bloging() {
             URL.revokeObjectURL(coverUrl);
             setCoverUrl(null);
         }
+        setOriginalImageId(null);
         document.getElementById(coverId).value = null;
     }
 
@@ -113,6 +128,25 @@ function Bloging() {
         readonly: false,
         placeholder: 'Write your article...',
     };
+
+    let [originalImageId, setOriginalImageId] = useState();
+
+    useEffect(() => {
+        if (id) {
+            (async () => {
+                const client = await blogClient.init();
+                const response = await client.getArticle({
+                    id: id,
+                });
+                setTitle(response.data.title);
+                setContent(response.data.content);
+                setTags(response.data.tags);
+                setCategory(response.data.category);
+                setCoverUrl(response.data.cover_url);
+                setOriginalImageId(response.data.cover);
+            })();
+        }
+    }, [id]);
 
     return (
         <section className="bloging">
@@ -123,7 +157,7 @@ function Bloging() {
                 {isAuthorized() &&
                     <div className="form__editor">
                         <h2>Cover:</h2>
-                        {cover && coverUrl &&
+                        {(cover || id) && coverUrl &&
                             <img src={coverUrl} className="article__cover" alt='cover' />
                         }
                         <input id={coverId} onChange={onFileChange} type='file' accept='image/*' />
@@ -159,7 +193,7 @@ function Bloging() {
                                 {tags.map((tag, index) => <button onClick={() => setTags(tags.filter((_, i) => i !== index))} key={index} className="button button__remove-tag">#{tag}</button>)}
                             </div>
                         </div>
-                        <button onClick={createArticle} className="button button__publish" {...publishStatus === PublishStatus.LOADING && 'disabled'}>publish</button>
+                        <button onClick={() => createArticle({ updateId: id, originalImageId: originalImageId })} className="button button__publish" {...publishStatus === PublishStatus.LOADING && 'disabled'}>{id ? "save" : "publish"}</button>
                         {publishStatus === PublishStatus.LOADING && <p>Publishing...</p>}
                         {publishStatus === PublishStatus.SUCCESS && <p>Article published</p>}
                         {publishStatus === PublishStatus.ERROR && <p>ERROR</p>}
