@@ -29,6 +29,59 @@ export default function Categories({ category }) {
                         {getCategoryText(category)}
                     </div>
                 </div>
+                <div className="filter-panel">
+                    <div className="select_category">
+                            <select name="categories" value={category} >
+                                <option value="all categories">All Categories</option>
+                                <option value="development">Development</option>
+                                <option value="administration">Administration</option>
+                                <option value="design">Design</option>
+                                <option value="management">Management</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="popular_science">Popular Science</option>
+                            </select>
+                    </div>
+                    <div className="select_rating">
+                            <select name="rating">
+                                <option value="rating popular">By rating from &gt; to &lt;</option>
+                                <option value="rating noname">By rating from &lt; to &gt;</option>
+                                <option value="number of saved">By number of saved</option>
+                            </select>
+                    </div>
+                </div>
+                <aside className='categories__aside'>
+                    <h4 className='title title_aside title_mb-30'>Find an article by tag <span className='tag-count'>(310)</span></h4>
+                    <ul className='menu categories__aside__list'>
+                        <li>
+                            <label className="checkbox">
+                                <input type="checkbox" name="tag" className='real-checkbox' />
+                                <span className='custom-checkbox'></span>
+                                <p className="checkbox__text">Management</p>
+                            </label>
+                        </li>
+                        <li>
+                            <label className="checkbox">
+                                <input type="checkbox" name="tag" className='real-checkbox' />
+                                <span className='custom-checkbox'></span>
+                                <p className="checkbox__text">Robot Pilosos Ultra Class Superilkd Pomichnik</p>
+                            </label>
+                        </li>
+                        <li>
+                            <label className="checkbox">
+                                <input type="checkbox" name="tag" className='real-checkbox' />
+                                <span className='custom-checkbox'></span>
+                                <p className="checkbox__text">LoverFOnderGrameGolderBetterFunASDSD</p>
+                            </label>
+                        </li>
+                        <li>
+                            <label className="checkbox">
+                                <input type="checkbox" name="tag" className='real-checkbox' />
+                                <span className='custom-checkbox'></span>
+                                <p className="checkbox__text">Sidebar</p>
+                            </label>
+                        </li>
+                    </ul>
+                </aside>
             </div>
         </section>
     );

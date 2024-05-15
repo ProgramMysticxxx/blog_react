@@ -4,7 +4,7 @@ function Contacts() {
     return(
         <section className="contact">
             <div className="container">
-                <h1 className="title title_blocks">Learn More About Us</h1>
+                <h1 className="title title_blocks">Feel Free To Contact Us.</h1>
                 <div className="contact__map">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12472.260935799324!2d24.710428909450957!3d48.91596614790456!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4730c16a0a7c0e47%3A0x8bf87c6dfb153463!2sKing%20Danylo%20University!5e0!3m2!1sen!2sua!4v1711804977920!5m2!1sen!2sua"  title="PlaceOnMap" width="1200" height="600" style={{'border': '0'}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" />
                 </div>

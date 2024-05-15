@@ -2,6 +2,7 @@ import './footer.scss';
 
 import email from '../../resources/img/icons/icon-email.svg';
 import { getCategoryUrl } from '../../utils/urls';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     return(
@@ -14,19 +15,19 @@ function Footer() {
                             <hr className="divider footer__divider divider_footer" />
                             <ul className="menu footer__nav__menu">
                                 <li>
-                                    <a href="/" className="menu__link">Home</a>
+                                    <Link end to="/" className="menu__link">Home</Link>
                                 </li>
                                 <li>
-                                    <a href="/categories" className="menu__link">Categories</a>
+                                    <Link end to="/categories" className="menu__link">Categories</Link>
                                 </li>
                                 <li>
-                                    <a href="/bloging" className="menu__link">Bloging</a>
+                                    <Link end to="/bloging" className="menu__link">Bloging</Link>
                                 </li>
                                 <li>
-                                    <a href="/about" className="menu__link">About</a>
+                                    <Link end to="/about" className="menu__link">About</Link>
                                 </li>
                                 <li>
-                                    <a href="/contacts" className="menu__link">Contacts</a>
+                                    <Link end to="/contacts" className="menu__link">Contacts</Link>
                                 </li>
                             </ul>
                         </div>
@@ -35,22 +36,22 @@ function Footer() {
                             <hr className="divider footer__divider divider_footer" />
                             <ul className="menu footer__nav__menu">
                                 <li>
-                                    <a href={getCategoryUrl('development')} className="menu__link">Development</a>
+                                    <Link end to={getCategoryUrl('development')} className="menu__link">Development</Link>
                                 </li>
                                 <li>
-                                    <a href={getCategoryUrl('administration')} className="menu__link">Administration</a>
+                                    <Link end to={getCategoryUrl('administration')} className="menu__link">Administration</Link>
                                 </li>
                                 <li>
-                                    <a href={getCategoryUrl('design')} className="menu__link">Design</a>
+                                    <Link end to={getCategoryUrl('design')} className="menu__link">Design</Link>
                                 </li>
                                 <li>
-                                    <a href={getCategoryUrl('management')} className="menu__link">Management</a>
+                                    <Link end to={getCategoryUrl('management')} className="menu__link">Management</Link>
                                 </li>
                                 <li>
-                                    <a href={getCategoryUrl('marketing')} className="menu__link">Marketing</a>
+                                    <Link end to={getCategoryUrl('marketing')} className="menu__link">Marketing</Link>
                                 </li>
                                 <li>
-                                    <a href={getCategoryUrl('popular_science')} className="menu__link">Popular Science</a>
+                                    <Link end to={getCategoryUrl('popular_science')} className="menu__link">Popular Science</Link>
                                 </li>
                             </ul>
                         </div>
@@ -59,19 +60,19 @@ function Footer() {
                             <hr className="divider footer__divider divider_footer" />
                             <ul className="menu footer__nav__menu">
                                 <li>
-                                    <a href="/" className="menu__link">GitHub</a>
+                                    <Link end to="/" className="menu__link">GitHub</Link>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">LinkedIn</a>
+                                    <Link end to="/" className="menu__link">LinkedIn</Link>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Telegram</a>
+                                    <Link end to="/" className="menu__link">Telegram</Link>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Facebook</a>
+                                    <Link end to="/" className="menu__link">Facebook</Link>
                                 </li>
                                 <li>
-                                    <a href="/" className="menu__link">Instagram</a>
+                                    <Link end to="/" className="menu__link">Instagram</Link>
                                 </li>
                             </ul>
                         </div>

@@ -70,11 +70,11 @@ function Articles({ category }) {
 
     return (
         <section class="articlesCarusel">
-            {/* <div class="container container_main"> */}
-            <div class="articlesCarusel__items">
-                {articles.map(article => Article(article))}
+            <div class="container container_main">
+                <div class="articlesCarusel__items">
+                    {articles.map(article => Article(article))}
+                </div>
             </div>
-            {/* </div> */}
         </section>
     );
 }

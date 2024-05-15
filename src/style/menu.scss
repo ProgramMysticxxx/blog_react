@@ -6,12 +6,15 @@
         font-size: 16px;
         line-height: 2.4;
         color: $titleColor;
-        opacity: 0.6;
+        opacity: .6;
         text-decoration: none;
         text-transform: capitalize;
         transition: all .3s ease;
         cursor: pointer;
-
+        &-nav:hover {
+            text-decoration: underline;
+            transition: all .3s ease;
+        }
         &:hover {
             opacity: 1;
             transition: all .3s ease;
@@ -26,7 +29,7 @@
     .sub-menu {
         list-style-type: none;
         position: absolute;
-        top: 44px;
+        top: 39px;
         left: -13px;
         padding: 10px 4px;
         background-color: $navigationColor;
@@ -59,7 +62,7 @@
         content: '';
         position: absolute;
         right: 6px;
-        top: 19px;
+        top: 16px;
         display: block;
         width: 6px;
         height: 6px;
