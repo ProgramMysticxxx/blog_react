@@ -9,10 +9,24 @@ const SignIn = () => {
     const usernameId = useId();
     const passwordId = useId();
 
+    const [loading, setLoading] = useState(false);
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const [errorText, setErrorText] = useState();
+
     async function performSignIn(e) {
+        e.preventDefault();
+        setLoading(true);
+        setErrorText(null);
+
+        if (!username || !password) {
+            setErrorText("Username and password fields cannot be empty.");
+            setLoading(false);
+            return;
+        }
+
         // if (username.length < 6) {
         //     alert('Username must be at least 6 characters long');
         //     return;
@@ -35,7 +49,10 @@ const SignIn = () => {
             setUsernameCookie(user.username);
             document.location.href = '/';
         } catch (error) {
-            alert('Error: ' + error);
+            setErrorText("Incorrect username or password. Please try again.");
+            console.error(error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -56,10 +73,11 @@ const SignIn = () => {
                         {/* <h5 class="title title_above">Email</h5>
                         <input type="text" name="email" placeholder="Enter your email address here" /> */}
                         <h5 class="title title_above">Username</h5>
-                        <input id={usernameId} value={username} onInput={e => setUsername(e.target.value)} type="text" name="password" placeholder="Enter your username here" />
+                        <input id={usernameId} value={username} onInput={e => setUsername(e.target.value)} disabled={loading} type="text" name="password" placeholder="Enter your username here" />
                         <h5 class="title title_above">Password</h5>
-                        <input id={passwordId} value={password} onInput={e => setPassword(e.target.value)} type="password" name="password" placeholder="Enter a strong password here" />
-                        <button class="button button_sign" onClick={performSignIn}>Sign In</button>
+                        <input id={passwordId} value={password} onInput={e => setPassword(e.target.value)} disabled={loading} type="password" name="password" placeholder="Enter a strong password here" />
+                        <button class="button button_sign" onClick={performSignIn} disabled={loading}>Sign In</button>
+                        {errorText && <p class="sign__error">{errorText}</p>}
                     </div>
                 </div>
                 <div class="log-in">

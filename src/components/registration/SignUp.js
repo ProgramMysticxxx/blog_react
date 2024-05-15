@@ -10,23 +10,33 @@ const SignUp = () => {
     const passwordId = useId();
     const confirmPasswordId = useId();
 
+    const [loading, setLoading] = useState(false);
+    const [errorText, setErrorText] = useState();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     async function performSignUp(e) {
+        e.preventDefault();
+        setLoading(true);
+        setErrorText(null);
+
         if (username.length < 6) {
-            alert('Username must be at least 6 characters long');
+            setErrorText('Username must be at least 6 characters long');
+            setLoading(false);
             return;
         }
 
         if (password.length < 6) {
-            alert('Password must be at least 6 characters long');
+            setErrorText('Password must be at least 6 characters long');
+            setLoading(false);
             return;
         }
 
         if (password !== confirmPassword) {
-            alert('Passwords do not match');
+            setErrorText('Passwords do not match');
+            setLoading(false);
             return;
         }
 
@@ -42,7 +52,10 @@ const SignUp = () => {
             setUsernameCookie(user.username);
             document.location.href = '/';
         } catch (error) {
-            alert('Error: ' + error);
+            console.error(error);
+            setErrorText("We couldn't register your account. The username may be taken or there was an error. Please try again.");
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -63,12 +76,13 @@ const SignUp = () => {
                         {/* <h5 className="title title_above">Email</h5>
                         <input type="text" name="email" placeholder="Enter your email address here" /> */}
                         <h5 className="title title_above">Username</h5>
-                        <input id={usernameId} value={username} onInput={e => setUsername(e.target.value)} type="text" name="name" placeholder="Enter your name here" />
+                        <input id={usernameId} value={username} onInput={e => setUsername(e.target.value)} disabled={loading} type="text" name="name" placeholder="Enter your name here" />
                         <h5 className="title title_above">Password</h5>
-                        <input id={passwordId} value={password} onInput={e => setPassword(e.target.value)} type="password" name="password" placeholder="Enter a strong password here" />
+                        <input id={passwordId} value={password} onInput={e => setPassword(e.target.value)} disabled={loading} type="password" name="password" placeholder="Enter a strong password here" />
                         <h5 className="title title_above">Repeat password</h5>
-                        <input id={confirmPasswordId} value={confirmPassword} onInput={e => setConfirmPassword(e.target.value)} type="password" name="password" placeholder="Repeat the password entered above here" />
-                        <button onClick={performSignUp} className="button button_sign">Sign Up</button>
+                        <input id={confirmPasswordId} value={confirmPassword} onInput={e => setConfirmPassword(e.target.value)} disabled={loading} type="password" name="password" placeholder="Repeat the password entered above here" />
+                        <button onClick={performSignUp} disabled={loading} className="button button_sign">Sign Up</button>
+                        {errorText && <p className="sign__error">{errorText}</p>}
                     </div>
                 </div>
                 <div className="log-in">

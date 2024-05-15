@@ -30,6 +30,10 @@
         transform: translateX(-50%);
         margin: 50px 0;
     }
+
+    &__error {
+        color: red;
+    }
 }
 
 .sign__logo {
