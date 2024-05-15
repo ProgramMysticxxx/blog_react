@@ -165,8 +165,8 @@ export default function Article({ id }) {
                 </div>
                 <div className="article__panel">
                     <div className="rate">
-                        <img onClick={like} src={article.your_rate ? iconLikeActive : iconLike} alt="like" className="rate__like" />
-                        <img onClick={dislike} src={article.your_rate ? iconDisLikeActive : iconDisLike} alt="dislike" className="rate__dislike" />
+                        <img onClick={like} src={article.your_rate === true ? iconLikeActive : iconLike} alt="like" className="rate__like" />
+                        <img onClick={dislike} src={article.your_rate === false ? iconDisLikeActive : iconDisLike} alt="dislike" className="rate__dislike" />
                         <div className="rate__rating">{article.rating}</div>
                         <img onClick={toggleBookmark} src={iconBookmark} alt="bookmark" className="rate__bookmark" style={{ background: article.is_your_bookmark && "yellow" }} />
                     </div>
