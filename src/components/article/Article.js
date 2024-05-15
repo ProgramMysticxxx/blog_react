@@ -11,6 +11,7 @@ import iconDisLikeActive from '../../resources/img/icons/like-dislike/icon-illum
 import iconBookmark from '../../resources/img/icons/icon-bookmark.svg';
 import ArticleCommentList from './ArticleCommentList';
 import DOMPurify from 'dompurify';
+import { getArticleUrl } from '../../utils/urls';
 
 export default function Article({ id }) {
     const [article, setArticle] = useState({});
@@ -140,6 +141,10 @@ export default function Article({ id }) {
         [],
     );
 
+    function editArticle() {
+        window.location = getArticleUrl(article.id) + '/edit';
+    }
+
     return (
         <section className="article">
             <div className="container container_main">
@@ -166,7 +171,7 @@ export default function Article({ id }) {
                         <img onClick={toggleBookmark} src={iconBookmark} alt="bookmark" className="rate__bookmark" style={{ background: article.is_your_bookmark && "yellow" }} />
                     </div>
                     <div className="change-article">
-                        {article.you_author && <button /* onClick={editArticle} */ className="button button_change button_edit">Edit Article</button>}
+                        {article.you_author && <button onClick={editArticle} className="button button_change button_edit">Edit Article</button>}
                         {article.you_author && <button onClick={deleteArticle} className="button button_change button_delete">Delete Article</button>}
                     </div>
                 </div>

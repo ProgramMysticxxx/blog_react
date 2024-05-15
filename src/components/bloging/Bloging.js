@@ -158,12 +158,12 @@ function Bloging({ id }) {
             <div className="container">
                 <h1 className="title title_blocks title_mb-30">Creating your own article is easy</h1>
                 <p className="bloging__descr">Here, you can create your own articles, share your thoughts and ideas, and inform and educate other users. Give free rein to your creativity and experience to make this space vibrant and engaging!</p>
-                <h2 className="title title_mb-30">Create article</h2>
+                <h2 className="title title_mb-30">{id ? 'Edit' : 'Create'} article</h2>
                 {isAuthorized() &&
                     <div className="form__editor">
                         <h4 className="title title_bloging_point">Add a cover image for your article (optional):</h4>
                         <div className="cover__img">
-                            <img src={coverUrl || coverPlug} className="article__cover" alt='cover' />
+                            <img src={coverUrl || coverPlug} className="article__cover" alt='cover' onClick={() => document.getElementById(coverId).click()} />
                         </div>
                         <div className="cover__status">
                             <span id="file-name">{fileName}</span>
@@ -171,7 +171,7 @@ function Bloging({ id }) {
                                 <label htmlFor={coverId} class="button button_cover">
                                     Choose file
                                 </label>
-                                <input id={coverId} onChange={onFileChange} type='file' />
+                                <input id={coverId} onChange={onFileChange} type='file' accept='image/*' />
                                 <button onClick={onClearClick} className='button button_cover'>Delete file</button>
                             </div>
                         </div>
