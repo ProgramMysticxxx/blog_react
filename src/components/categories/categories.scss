@@ -21,9 +21,12 @@
 
     &__aside {
         margin-right: 30px;
-        width: 350px;
+        padding-right: 10px;
+        width: 320px;
         height: 800px;
         border-right: 1px solid $decorColor;
+        overflow-y: auto;
+        scrollbar-width: none;
         &__list {
             width: 100%;
             padding: 0 15px;
@@ -37,11 +40,34 @@
     color: $decorColor;
 }
 
-.filter-panel {
+.articles {
     margin-top: 75px;
     display: flex;
-    justify-content: flex-end;
-    gap: 40px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.articles_items {
+    display: flex;
+    flex-direction: column;
+}
+
+.panel {
+    margin-bottom: 40px;
+    display: flex;
+    height: 60px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    &__filter {
+        display: flex;
+        gap: 40px;
+    }
+    &__search {
+        border: 1px solid $decorColor;
+        border-radius: 50px;
+        height: auto;
+    }
 }
 
 .real-checkbox {

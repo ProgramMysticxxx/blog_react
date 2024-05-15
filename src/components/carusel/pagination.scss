@@ -1,0 +1,57 @@
+@import '../../style/variables.scss';
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 10px 40px;
+    border-radius: 6px;
+    &_menu {
+        margin: 20px 30px;
+    }
+}
+
+.page__link {
+    margin: 0 10px;
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background: #ccc;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 45px;
+    cursor: pointer;
+    &_active {
+        color: $titleColor;
+        background: $mainTextColor;
+    }
+}
+
+.prev, .next {
+    display: inline-block;
+    align-items: center;
+    font-weight: 500;
+    font-size: 22px;
+    color: $mainTextColor;
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+}
+
+.leftArrow {
+    width: 24px;
+    margin-right: 10px;
+    vertical-align: sub;
+    transform: rotate(180deg);
+}
+
+.rightArrow {
+    width: 24px;
+    margin-left: 10px;
+    vertical-align: sub;
+}

@@ -8,7 +8,7 @@ const HomePage = () => {
         <>
             <Header />
             <main>
-            <Articles />
+                <Articles />
             </main>
             <Extra />
             <Footer />

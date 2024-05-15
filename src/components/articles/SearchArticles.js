@@ -1,4 +1,4 @@
-import Articles from "./Articles";
+import Articles from "../carusel/Carusel";
 import './search_articles.scss';
 
 export default function SearchArticles() {

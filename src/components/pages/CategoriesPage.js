@@ -1,6 +1,5 @@
 import NavbarMigration from '../navbar/NavbarMigration';
 import Categories from '../categories/Categories';
-import Articles from '../articles/Articles';
 import Extra from "../extra/Extra";
 import Footer from "../footer/Footer";
 import { useEffect, useState } from 'react';
@@ -15,7 +14,6 @@ export default function CategoriesPage() {
             <NavbarMigration />
             <main>
                 <Categories category={category} setCategory={setCategory} />
-                <Articles category={category} />
             </main>
             <Extra />
             <Footer />
