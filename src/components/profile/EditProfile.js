@@ -13,12 +13,13 @@ const SaveStatus = {
     ERROR: 3,
 };
 
-async function fetchProfile(username, setProfile, {preloader}) {
+async function fetchProfile(username, setProfile, { preloader }) {
     let client = await blogClient.init();
     try {
         let result = await client.getProfile(
             {
                 username: username,
+                include_email: true,
             },
             {},
             getAuthHeaders(),
@@ -56,6 +57,7 @@ async function saveProfile(
         let result = await client.partialUpdateProfile(
             {
                 username: profile.username,
+                include_email: true,
             },
             {
                 public_name: newData.public_name ? newData.public_name : "",
@@ -94,7 +96,7 @@ export default function EditProfile({ username }) {
     const [uploadedAvatarUrl, setUploadedAvatarUrl] = useState(null);
 
     useEffect(
-        () => { fetchProfile(username, setProfile, {preloader}); },
+        () => { fetchProfile(username, setProfile, { preloader }); },
         [username, preloader],
     );
 
@@ -176,8 +178,8 @@ export default function EditProfile({ username }) {
                 <button onClick={onClearClick}>Clear</button>
             </label>
             <label>Delete avatar? <input id={deleteAvatarId} type='checkbox' value={deleteAvatar} onChange={(e) => setDeleteAvatar(e.target.checked)} /></label>
-            <input type="text" placeholder="Username" disabled />
-            <input type="email" placeholder="Email" disabled />
+            <input type="text" placeholder="Username" disabled value={username} />
+            {profile.email && <input type="email" placeholder="Email" disabled value={profile.email} />}
             <input id={publicNameId} value={publicName} onChange={(e) => setPublicName(e.target.value)} type="text" placeholder="Public name" />
             <textarea id={bioId} value={bio} onChange={(e) => setBio(e.target.value)} placeholder="Bio" />
             {saveStatus === SaveStatus.SAVING ?
