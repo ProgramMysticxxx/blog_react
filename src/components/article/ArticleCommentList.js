@@ -5,8 +5,30 @@ import { getAuthHeaders, isAuthorized } from "../../utils/auth_utils";
 import iconIncognito from "../../resources/img/icons/icon-incognito.svg";
 import { getProfileUrl } from "../../utils/urls";
 import { takeFirstNChars } from "../../utils/string_utils";
+import iconLike from '../../resources/img/icons/like-dislike/icon-illuminate-like.png';
+import iconLikeActive from '../../resources/img/icons/like-dislike/icon-illuminate-like-active.png';
+import iconDisLike from '../../resources/img/icons/like-dislike/icon-illuminate-dislike.png';
+import iconDisLikeActive from '../../resources/img/icons/like-dislike/icon-illuminate-dislike-active.png';
 
-function ArticleCommentItem({ comment, onDelete, onReply }) {
+function ArticleCommentItem({ comment, onDelete, onReply, onRate }) {
+    function onLike(e) {
+        e.preventDefault();
+        if (comment.your_rate === true) {
+            onRate(comment, null);
+        } else {
+            onRate(comment, true);
+        }
+    }
+
+    function onDislike(e) {
+        e.preventDefault();
+        if (comment.your_rate === false) {
+            onRate(comment, null);
+        } else {
+            onRate(comment, false);
+        }
+    }
+
     return (
         <div className="comments__comment" style={{ paddingBottom: '20px' }}>
             <div className="comments__imgbox">
@@ -18,6 +40,11 @@ function ArticleCommentItem({ comment, onDelete, onReply }) {
                     <div className="comments__date">{formatDate(comment.created_at)}</div>
                     <div className="comments__reply" onClick={() => onReply(comment)}>Reply</div>
                     {comment.is_your_comment && <div className="comments__delete" onClick={() => onDelete(comment)}>Delete</div>}
+                    <div className="rate">
+                        <img className="rate__like" alt="like" src={comment.your_rate === true ? iconLikeActive : iconLike} onClick={onLike} />
+                        <img className="rate__dislike" alt="dislike" src={comment.your_rate === false ? iconDisLikeActive : iconDisLike} onClick={onDislike} />
+                        <div className="rate__rating small">{comment.rating}</div>
+                    </div>
                 </div>
                 <div className="comments__message">{comment.content}</div>
             </div>
@@ -25,12 +52,13 @@ function ArticleCommentItem({ comment, onDelete, onReply }) {
     );
 }
 
-function NestedComment({ groupedComments, comment, onDelete, onReply, depth = 0 }) {
+function NestedComment({ groupedComments, comment, onDelete, onReply, onRate, depth = 0 }) {
     return (
         <div style={{ paddingLeft: `${depth * 50}px` }}>
             <ArticleCommentItem
                 comment={comment}
                 onDelete={onDelete}
+                onRate={onRate}
                 onReply={onReply} />
             {/* {
                 groupedComments[comment.id] &&
@@ -45,6 +73,7 @@ function NestedComment({ groupedComments, comment, onDelete, onReply, depth = 0 
                         groupedComments={groupedComments}
                         comment={comment}
                         onDelete={onDelete}
+                        onRate={onRate}
                         onReply={onReply} />
                 )
             }
@@ -53,7 +82,7 @@ function NestedComment({ groupedComments, comment, onDelete, onReply, depth = 0 
     );
 }
 
-function NestedComments({ comments, onDelete, onReply }) {
+function NestedComments({ comments, onDelete, onReply, onRate }) {
     const groupedComments = useMemo(() => {
         const m = {};
         comments.forEach((comment) => {
@@ -73,6 +102,7 @@ function NestedComments({ comments, onDelete, onReply }) {
                         comment={comment}
                         groupedComments={groupedComments}
                         onDelete={onDelete}
+                        onRate={onRate}
                         onReply={onReply} />;
                 }
                 )
@@ -152,6 +182,28 @@ export default function ArticleCommentList({ article_id }) {
         commentFormRef.current.scrollIntoView({ behavior: 'smooth' });
     }
 
+    async function onRateComment(comment, rate) {
+        if (!isAuthorized()) {
+            alert("You have to login into your account to proceed this action");
+            return;
+        }
+        const client = await blogClient.init();
+        try {
+            if (rate === null || rate === undefined) {
+                await client.unrateComment({ id: comment.id }, {}, getAuthHeaders());
+            } else {
+                await client.rateComment({ id: comment.id }, {
+                    is_positive: rate,
+                }, getAuthHeaders());
+            }
+
+            const response = await client.getComment({ id: comment.id }, {}, getAuthHeaders());
+            setComments(comments.map(e => e.id === comment.id ? response.data : e));
+        } catch (error) {
+            alert("Could not rate comment: " + error);
+        }
+    }
+
     return (
         <div className="container">
             <div className="comments article__comments">
@@ -161,7 +213,8 @@ export default function ArticleCommentList({ article_id }) {
                     <NestedComments
                         comments={comments}
                         onDelete={deleteComment}
-                        onReply={onReplyComment} />
+                        onReply={onReplyComment}
+                        onRate={onRateComment} />
                 }
             </div>
             <div className="form_comments" ref={commentFormRef}>
