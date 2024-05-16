@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, useLayoutEffect, useRef } from 'react';
 import './carusel.scss';
 import blogClient from '../../utils/blog_client';
 import { formatDate } from '../../utils/date';
@@ -6,6 +6,9 @@ import { getArticleUrl, getCategoryUrl } from '../../utils/urls';
 import DOMPurify from 'dompurify';
 import { extractTextContent } from '../../utils/dom_utils';
 import Pagination from '../carusel/Pagination';
+import { PreloaderContext, defaultPreloaderTimeout } from '../preloader/Preloader';
+import categoryName from '../../utils/category_name';
+import { useSearchParams } from 'react-router-dom';
 
 function Article(article) {
     // Prevent XSS
@@ -43,22 +46,45 @@ function Article(article) {
     );
 }
 
-function Articles({ category }) {
+function Articles({
+    category,
+    limit = 12,
+    search,
+    ordering,
+    tags,
+}) {
+    const preloader = useContext(PreloaderContext);
+
+    const topRef = useRef(null);
+
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [currrentPage, setCurrentPage] = useState(1);
-    const [articlesPerPage] = useState(12);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [offset, setOffset] = useState(0);
 
-    async function fetchArticles() {
+    const [totalArticles, setTotalArticles] = useState(0);
+
+    async function fetchArticles({
+        limit,
+        offset,
+        category,
+        search,
+        ordering,
+        tags,
+    }) {
         const client = await blogClient.init();
         const category__name = category === "all" || !category ? undefined : category
         try {
             const response = await client.getArticles({
-                limit: 12,
-                ordering: '-created_at',
+                limit: limit,
+                offset: offset,
                 category__name: category__name,
+                search: search,
+                ordering: ordering ?? '-updated_at',
+                tags__name : tags?.join(',') ?? undefined,
             });
-            const articles = response.data.results
+            const articles = response.data.results;
+            setTotalArticles(response.data.count);
             setArticles(articles);
         } catch (error) {
             alert("Coult not fetch articles: " + error);
@@ -67,23 +93,58 @@ function Articles({ category }) {
 
     useEffect(
         () => {
-            fetchArticles();
+            fetchArticles({
+                limit,
+                offset,
+                category,
+                search,
+                ordering,
+                tags,
+            });
         },
-        [],
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [
+            limit,
+            offset,
+            category,
+            search,
+            ordering,
+            tags,
+        ],
     );
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    useEffect(() => {
+        if (preloader) {
+            setTimeout(() => {
+                preloader.setLoading(!articles);
+            }, defaultPreloaderTimeout);
+        }
+    }, [articles, preloader]);
+
+    function changePage(page) {
+        const newOffset = (page - 1) * limit;
+        setOffset(newOffset);
+        setCurrentPage(page);
+        if (topRef.current) {
+            topRef.current.scrollIntoView({
+                behavior: 'smooth',
+            });
+        }
+    }
+
+
 
     return (
-        <section class="articlesCarusel">
+        <section class="articlesCarusel" ref={topRef}>
             <div class="articlesCarusel__items">
                 {articles.map(article => Article(article))}
             </div>
             <div className="aticlesPagination">
-                <Pagination 
-                    articlesPerPage={articlesPerPage}
-                    totalArticles={articles.length}
-                    paginate={paginate}
+                <Pagination
+                    articlesPerPage={limit}
+                    totalArticles={totalArticles}
+                    currentPage={currentPage}
+                    paginate={changePage}
                 />
             </div>
         </section>

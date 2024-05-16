@@ -1,6 +1,6 @@
 import './profile.scss';
 
-import { useState, useEffect, act } from 'react';
+import { useState, useEffect, act, useContext } from 'react';
 import blogClient from '../../utils/blog_client';
 import { getProfileUrl } from '../../utils/urls';
 import { formatDate } from '../../utils/date';
@@ -11,8 +11,10 @@ import EmptyPlaceholder from './EmptyPlaceholder';
 import ProfileArticlesList from './ProfileArticlesList';
 import ProfileFollowingList from './ProfileFollowingList';
 import { getAuthHeaders, isAuthorized } from '../../utils/auth_utils';
+import { PreloaderContext, defaultPreloaderTimeout } from '../preloader/Preloader';
 
 export default function Profile({ username }) {
+    const preloader = useContext(PreloaderContext);
     const [profile, setProfile] = useState([]);
 
     function logout() {
@@ -34,6 +36,14 @@ export default function Profile({ username }) {
     useEffect(() => {
         fetchProfile();
     }, []);
+
+    useEffect(() => {
+        if (preloader) {
+            setTimeout(() => {
+                preloader.setLoading(!profile);
+            }, defaultPreloaderTimeout);
+        }
+    }, [profile, preloader]);
 
     const [activeTab, setActiveTab] = useState(0);
     const whats = [
@@ -79,11 +89,11 @@ export default function Profile({ username }) {
                                 <p className="profile__text">{profile.bio}</p>
                             </div>
                             {isAuthorized() &&
-                            <div className='profile__buttons_wrapper'>
-                                {isAuthorized() && profile.is_you && <button className="button button_edit" onClick={() => window.location.href = `/profile/${profile.username}/edit`}>Edit profile</button>}
-                                {isAuthorized() && !profile.is_you && <button onClick={toggleFollow} className="button button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
-                                {isAuthorized() && profile.is_you && <button className="button button_follow" onClick={logout}>Logout</button>}
-                            </div>
+                                <div className='profile__buttons_wrapper'>
+                                    {isAuthorized() && profile.is_you && <button className="button button_edit" onClick={() => window.location.href = `/profile/${profile.username}/edit`}>Edit profile</button>}
+                                    {isAuthorized() && !profile.is_you && <button onClick={toggleFollow} className="button button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
+                                    {isAuthorized() && profile.is_you && <button className="button button_follow" onClick={logout}>Logout</button>}
+                                </div>
                             }
                         </div>
                         <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} isYou={profile.is_you} />

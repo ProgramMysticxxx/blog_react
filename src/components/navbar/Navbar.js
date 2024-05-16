@@ -9,9 +9,11 @@ import logo from '../../resources/img/icons/logo_v1.svg';
 import { getTokenCookie } from '../../utils/cookie_manager';
 import MiniProfile from './MiniProfile';
 import { getCategoryUrl } from '../../utils/urls';
+import { useState } from 'react';
 
 
 function Navbar() {
+    const [searchOnTap, setSearchOnTap] = useState(false);
 
     function openSearchPanel() {
         const searchBox = document.querySelector('.search');
@@ -25,9 +27,13 @@ function Navbar() {
             searchInput.classList.add('search__input_active');
             cancelButton.classList.add('search__cancel_btn_active');
         }
+
+        setSearchOnTap(true);
     }
 
     function closeSearchPanel() {
+        setSearchOnTap(false);
+
         const searchBox = document.querySelector('.search');
         const searchInput = document.querySelector('.search__input');
         const searchButton = document.querySelector('.search_btn');
@@ -51,13 +57,24 @@ function Navbar() {
         }
     });
 
+    function redirectToSearch(e) {
+        e.preventDefault();
+        window.location = '/articles?search=' + document.querySelector('.search__input').value;
+    }
+
+    function redirectToSearchIfEnter(e) {
+        if (e.key === 'Enter') {
+            redirectToSearch(e);
+        }
+    }
+
     return (
         <nav className="navbar">
             <div className="navbar__panel">
                 <div className="search">
-                    <input type="text" name="search" placeholder="Type to search.." className="search__input" />
+                    <input type="text" name="search" placeholder="Type to search.." className="search__input" onKeyDown={redirectToSearchIfEnter}  />
                     <div className="search_btn" onClick={openSearchPanel}>
-                        <img src={serch} alt="search" className="search_btn__img" />
+                        <img src={serch} alt="search" className="search_btn__img" onClick={searchOnTap ? redirectToSearch : null} />
                     </div>
                     <div className="search__cancel_btn" onClick={closeSearchPanel}>
                         <img src={cancel} alt="cancel" className="search__cancel_btn__img" />
@@ -71,7 +88,7 @@ function Navbar() {
                     </Link>
                 </div>
                 <div className="registrate">
-                    {!getTokenCookie() &&
+                    {!getTokenCookie() ?
                         <>
                             <Link to="/signIn" className="sign-in">
                                 sign in
@@ -80,7 +97,7 @@ function Navbar() {
                                 sign up
                             </Link>
                         </>
-                        ||
+                        :
                         <MiniProfile />
                     }
                 </div>
@@ -91,7 +108,7 @@ function Navbar() {
                     <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/" className="menu__link menu__link-nav">Home</NavLink>
                 </li>
                 <li className="li_sub-menu">
-                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/categories" className="menu__link menu__link-nav">Categories</NavLink>
+                    <NavLink end style={({ isActive }) => ({ 'opacity': isActive ? 1 : 0.6 })} to="/articles" className="menu__link menu__link-nav">Categories</NavLink>
                     <ul className="sub-menu">
                         <li>
                             <a href={getCategoryUrl("development")} className="menu__link sub-menu__link">Development</a>

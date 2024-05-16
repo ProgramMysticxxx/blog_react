@@ -4,6 +4,7 @@ import serch from '../../resources/img/icons/icon-search.svg';
 import Articles from '../carusel/Carusel';
 import './categories.scss';
 import '../navbar/navbar.scss';
+import { useId, useState } from 'react';
 
 function CategoryItem(category) {
     return (
@@ -18,6 +19,9 @@ function getCategoryText(_) {
 }
 
 export default function Categories({ category }) {
+    const searchId = useId();
+    const [search, setSearch] = useState("");
+    const [ordering, setOrdering] = useState("-updated_at");
 
     return (
         <section className="categories">
@@ -31,51 +35,6 @@ export default function Categories({ category }) {
                     </ul>
                     <div className="categories__text">
                         {getCategoryText(category)}
-                    </div>
-                </div>
-                <div className="articles">
-                    <aside className='categories__aside'>
-                        <h4 className='title title_aside title_mb-30'>Find an article by tag <span className='tag-count'>(310)</span></h4>
-                        <ul className='menu categories__aside__list'>
-                            <li>
-                                <label className="checkbox">
-                                    <input type="checkbox" name="tag" className='real-checkbox' />
-                                    <span className='custom-checkbox'></span>
-                                    <p className="checkbox__text">Management</p>
-                                </label>
-                            </li>
-                        </ul>
-                    </aside>
-                    <div className="articles_items">
-                        <div className="panel">
-                            <div className="search search_active panel__search">
-                                <input type="text" name="search" placeholder="Type to search.." className="search__input search__input_active" />
-                                <div className="search_btn search_btn_active">
-                                    <img src={serch} alt="search" className="search_btn__img" />
-                                </div>
-                            </div>
-                            <div className="panel__filter">
-                                <div className="select_category">
-                                        <select name="categories" value={category} >
-                                            <option value="all categories">All Categories</option>
-                                            <option value="development">Development</option>
-                                            <option value="administration">Administration</option>
-                                            <option value="design">Design</option>
-                                            <option value="management">Management</option>
-                                            <option value="marketing">Marketing</option>
-                                            <option value="popular_science">Popular Science</option>
-                                        </select>
-                                </div>
-                                <div className="select_rating">
-                                        <select name="rating">
-                                            <option value="rating popular">By rating from &gt; to &lt;</option>
-                                            <option value="rating noname">By rating from &lt; to &gt;</option>
-                                            <option value="number of saved">By number of saved</option>
-                                        </select>
-                                </div>
-                            </div>
-                        </div>
-                        <Articles category={category} />
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import blogClient from '../../utils/blog_client';
 import { getAuthHeaders } from '../../utils/auth_utils';
 import { getTokenCookie } from '../../utils/cookie_manager';
 import iconIncognito from '../../resources/img/icons/icon-incognito.svg';
+import { timeoutPreloader, usePreloader } from '../preloader/Preloader';
 
 const SaveStatus = {
     NONE: 0,
@@ -12,7 +13,7 @@ const SaveStatus = {
     ERROR: 3,
 };
 
-async function fetchProfile(username, setProfile) {
+async function fetchProfile(username, setProfile, {preloader}) {
     let client = await blogClient.init();
     try {
         let result = await client.getProfile(
@@ -23,6 +24,7 @@ async function fetchProfile(username, setProfile) {
             getAuthHeaders(),
         );
         setProfile(result.data);
+        timeoutPreloader(preloader, false);
     } catch (error) {
         setProfile(undefined);
     }
@@ -71,25 +73,29 @@ async function saveProfile(
 }
 
 export default function EditProfile({ username }) {
-    let [profile, setProfile] = useState(null);
+    const preloader = usePreloader();
 
-    let avatarId = useId();
-    let [avatar, setAvatar] = useState(null);
+    const [profile, setProfile] = useState(null);
 
-    let deleteAvatarId = useId();
-    let [deleteAvatar, setDeleteAvatar] = useState(false);
+    const avatarId = useId();
+    const [avatar, setAvatar] = useState(null);
 
-    let publicNameId = useId();
-    let [publicName, setPublicName] = useState('');
+    const deleteAvatarId = useId();
+    const [deleteAvatar, setDeleteAvatar] = useState(false);
 
-    let bioId = useId();
-    let [bio, setBio] = useState('');
+    const publicNameId = useId();
+    const [publicName, setPublicName] = useState('');
 
-    let [saveStatus, setSaveStatus] = useState(SaveStatus.NONE);
+    const bioId = useId();
+    const [bio, setBio] = useState('');
+
+    const [saveStatus, setSaveStatus] = useState(SaveStatus.NONE);
+
+    const [uploadedAvatarUrl, setUploadedAvatarUrl] = useState(null);
 
     useEffect(
-        () => { fetchProfile(username, setProfile); },
-        [username],
+        () => { fetchProfile(username, setProfile, {preloader}); },
+        [username, preloader],
     );
 
     useEffect(
@@ -118,6 +124,10 @@ export default function EditProfile({ username }) {
 
     function onClearClick() {
         setAvatar(null);
+        if (uploadedAvatarUrl) {
+            URL.revokeObjectURL(uploadedAvatarUrl);
+            setUploadedAvatarUrl(null);
+        }
         let avatarInput = document.getElementById(avatarId);
         avatarInput.value = null;
     }
@@ -136,12 +146,33 @@ export default function EditProfile({ username }) {
         );
     }
 
+
+
+    function onAvatarChange(e) {
+        e.preventDefault();
+        const file = e.target.files[0];
+        if (uploadedAvatarUrl) {
+            URL.revokeObjectURL(uploadedAvatarUrl);
+            setUploadedAvatarUrl(null);
+        }
+        setAvatar(file);
+        setUploadedAvatarUrl(URL.createObjectURL(file));
+    }
+
+    function getPreviewAvatar() {
+        if (deleteAvatar) {
+            return iconIncognito;
+        }
+
+        return uploadedAvatarUrl ?? profile.avatar_url ?? iconIncognito;
+    }
+
     return (
         <div className="edit-profile">
             <h1>Edit Profile</h1>
-            <img alt="avatar" className="edit-profile__avatar" src={profile.avatar_url ?? iconIncognito} />
+            <img alt="avatar" className="edit-profile__avatar" src={getPreviewAvatar()} />
             <label>
-                New avatar <input id={avatarId} onChange={(e) => setAvatar(e.target.files[0])} type='file' accept='image/*' />
+                New avatar <input id={avatarId} onChange={onAvatarChange} type='file' accept='image/*' />
                 <button onClick={onClearClick}>Clear</button>
             </label>
             <label>Delete avatar? <input id={deleteAvatarId} type='checkbox' value={deleteAvatar} onChange={(e) => setDeleteAvatar(e.target.checked)} /></label>

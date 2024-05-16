@@ -12,8 +12,10 @@ import iconBookmark from '../../resources/img/icons/icon-bookmark.svg';
 import ArticleCommentList from './ArticleCommentList';
 import DOMPurify from 'dompurify';
 import { getArticleUrl } from '../../utils/urls';
+import { timeoutPreloader, usePreloader } from '../preloader/Preloader';
 
 export default function Article({ id }) {
+    const preloader = usePreloader();
     const [article, setArticle] = useState({});
 
     async function fetchArticle() {
@@ -28,6 +30,8 @@ export default function Article({ id }) {
             setArticle(article);
         } catch (error) {
             alert("Could not fetch article: " + error);
+        } finally {
+            timeoutPreloader(preloader, false);
         }
     }
 

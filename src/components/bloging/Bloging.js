@@ -7,6 +7,7 @@ import { getTokenCookie } from '../../utils/cookie_manager';
 import JoditEditor from 'jodit-react';
 
 import coverPlug from '../../resources/img/bloging/plug.jpg';
+import { timeoutPreloader, usePreloader } from '../preloader/Preloader';
 
 const PublishStatus = {
     NONE: 0,
@@ -16,6 +17,8 @@ const PublishStatus = {
 };
 
 function Bloging({ id }) {
+    const preloader = usePreloader();
+
     const coverId = useId();
     const [cover, setCover] = useState();
     const [coverUrl, setCoverUrl] = useState();
@@ -149,9 +152,12 @@ function Bloging({ id }) {
                 setCategory(response.data.category);
                 setCoverUrl(response.data.cover_url);
                 setOriginalImageId(response.data.cover);
+                timeoutPreloader(preloader, false);
             })();
+        } else {
+            preloader?.setLoading(false);
         }
-    }, [id]);
+    }, [id, preloader]);
 
     return (
         <section className="bloging">
