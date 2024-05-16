@@ -9,10 +9,10 @@ function ArticleCommentItem({comment}) {
     return (
         <div className="comments__comment" style={{paddingBottom: '20px'}}>
             <div className="comments__imgbox">
-                <img src={comment.author_avatar_url ?? iconIncognito} alt="inkognito" className="comments__img" />
+                <img src={comment.author_details?.avatar_url ?? iconIncognito} alt="inkognito" className="comments__img" />
                 </div>
             <div className="comments__content">
-                <a href={getProfileUrl(comment.author_username)} className="comments__username">@{comment.author_username}</a>
+                <a href={getProfileUrl(comment.author_details?.username)} className="comments__username">@{comment.author_details?.username}</a>
                 <div className="comments__content__wrapper">
                     <div className="comments__date">{formatDate(comment.created_at)}</div>
                     {/* <div className="comments__reply">Reply</div> */}

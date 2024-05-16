@@ -184,13 +184,15 @@ export default function Article({ id }) {
                     <hr className="divider divider_author" />
                     <div className="article__author">
                         <div className="article__author__avatar">
-                            <img src={article.author_avatar_url} alt="avatar" />
+                            <img src={article.author_details?.avatar_url} alt="avatar" />
                         </div>
                         <div className="article__author__info">
-                            {article.author_public_name && <div className="article__author__name">{article.author_public_name}</div>}
-                            <a href={getProfileUrl(article.author_username)} className="article__author__name">@{article.author_username}</a>
-                            {article.author_bio && <div className="article__author__bio"><b>Bio: </b>{article.author_bio}</div>}
-                            <div className="article__author__date"><b>Date Joined: </b>{formatDate(article.author_date_joined)}</div>
+                            {article.author_details?.public_name && <div className="article__author__name">{article.author_details?.public_name}</div>}
+                            <a href={getProfileUrl(article.author_details?.username)} className="article__author__name">@{article.author_details?.username}</a>
+                            {article.author_details?.bio && <div className="article__author__bio"><b>Bio: </b>{article.author_details?.bio}</div>}
+                            <div className="article__author__date"><b>Date Joined: </b>{formatDate(article.author_details?.date_joined)}</div>
+                            <div className="article__author__rating"><b>Rating: </b>{article.author_details?.total_articles_rating}</div>
+                            <div className="article__author__subscribers"><b>Subscribers: </b>{article.author_details?.subscribers_count}</div>
                         </div>
                     </div>
                 </div>

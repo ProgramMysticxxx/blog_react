@@ -54,7 +54,7 @@ function _PopPost(article, index) {
         id,
         cover_url,
         title,
-        author_username,
+        author_details,
         updated_at,
     } = article;
     return (
@@ -71,7 +71,7 @@ function _PopPost(article, index) {
                 <ul className="creator creator_pop-post">
                     By
                     <li>
-                        <a href={getProfileUrl(author_username)} className="creator__link creator__link_pop-post">@{author_username}</a>
+                        <a href={getProfileUrl(author_details?.username)} className="creator__link creator__link_pop-post">@{author_details?.username}</a>
                     </li>
                     on
                     <li>

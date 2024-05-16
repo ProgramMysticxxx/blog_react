@@ -47,14 +47,14 @@ function Header() {
                                         <a href={getArticleUrl(editorChoice[0]?.id)} className="posts__link">{editorChoice[0]?.title}</a>
                                     </h1>
                                     <ul className="creator">
-                                        {editorChoice[0]?.author_avatar_url &&
+                                        {editorChoice[0]?.author_details?.avatar_url &&
                                             <li>
-                                                <a href={getProfileUrl(editorChoice[0]?.author_username)} className="creator__link_img">
-                                                    <img src={editorChoice[0]?.author_avatar_url} alt="profile" className="creator__img" />
+                                                <a href={getProfileUrl(editorChoice[0]?.author_details?.details?.username)} className="creator__link_img">
+                                                    <img src={editorChoice[0]?.author_details?.avatar_url} alt="profile" className="creator__img" />
                                                 </a>
                                             </li>}
                                         <li>
-                                            <a href={getProfileUrl(editorChoice[0]?.author_username)} className="creator__link creator__link_main">@{editorChoice[0]?.author_username}</a>
+                                            <a href={getProfileUrl(editorChoice[0]?.author_details?.username)} className="creator__link creator__link_main">@{editorChoice[0]?.author_details?.username}</a>
                                         </li>
                                         <li>
                                             <p className="creator__data creator__data_main">{formatDate(editorChoice[0]?.created_at)}</p>
@@ -71,7 +71,7 @@ function Header() {
                                     </h2>
                                     <ul className="creator">
                                         <li>
-                                            <a href={getProfileUrl(editorChoice[1]?.author_username)} className="creator__link">@{editorChoice[1]?.author_username}</a>
+                                            <a href={getProfileUrl(editorChoice[1]?.author_details?.username)} className="creator__link">@{editorChoice[1]?.author_details?.username}</a>
                                         </li>
                                         <li>
                                             <p className="creator__data">{formatDate(editorChoice[1]?.created_at)}</p>
@@ -89,7 +89,7 @@ function Header() {
                                     </h2>
                                     <ul className="creator">
                                         <li>
-                                            <a href={getProfileUrl(editorChoice[2]?.author_username)} className="creator__link">@{editorChoice[2]?.author_username}</a>
+                                            <a href={getProfileUrl(editorChoice[2]?.author_details?.username)} className="creator__link">@{editorChoice[2]?.author_details?.username}</a>
                                         </li>
                                         <li>
                                             <p className="creator__data">{formatDate(editorChoice[2]?.created_at)}</p>
