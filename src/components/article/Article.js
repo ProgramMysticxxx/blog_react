@@ -185,7 +185,7 @@ export default function Article({ id }) {
                 <div>
                     <h3 className="title">Post Author</h3>
                     <hr className="divider divider_author" />
-                    <ProfileItem profile={article.author_details} />
+                    {article.author_details && <ProfileItem profile={article.author_details} />}
                 </div>
                 <div className="article__tags">
                     <h3 className="title">Post Tags</h3>
