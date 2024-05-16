@@ -11,7 +11,7 @@ import iconDisLikeActive from '../../resources/img/icons/like-dislike/icon-illum
 import iconBookmark from '../../resources/img/icons/icon-bookmark.svg';
 import ArticleCommentList from './ArticleCommentList';
 import DOMPurify from 'dompurify';
-import { getArticleUrl, getCategoryUrl, getTagUrl } from '../../utils/urls';
+import { getArticleUrl, getCategoryUrl, getProfileUrl, getTagUrl } from '../../utils/urls';
 import { timeoutPreloader, usePreloader } from '../preloader/Preloader';
 
 export default function Article({ id }) {
@@ -177,6 +177,21 @@ export default function Article({ id }) {
                     <div className="change-article">
                         {article.you_author && <button onClick={editArticle} className="button button_change button_edit">Edit Article</button>}
                         {article.you_author && <button onClick={deleteArticle} className="button button_change button_delete">Delete Article</button>}
+                    </div>
+                </div>
+                <div>
+                    <h3 className="title">Post Author</h3>
+                    <hr className="divider divider_author" />
+                    <div className="article__author">
+                        <div className="article__author__avatar">
+                            <img src={article.author_avatar_url} alt="avatar" />
+                        </div>
+                        <div className="article__author__info">
+                            {article.author_public_name && <div className="article__author__name">{article.author_public_name}</div>}
+                            <a href={getProfileUrl(article.author_username)} className="article__author__name">@{article.author_username}</a>
+                            <div className="article__author__bio"><b>Bio: </b>{article.author_bio}</div>
+                            <div className="article__author__date"><b>Date Joined: </b>{formatDate(article.author_date_joined)}</div>
+                        </div>
                     </div>
                 </div>
                 <div className="article__tags">
