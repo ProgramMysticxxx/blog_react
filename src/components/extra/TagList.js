@@ -1,9 +1,6 @@
 import blogClient from '../../utils/blog_client';
 import { useState, useEffect } from 'react';
-
-function _getTagUrl(name) {
-    return `/tag/${name}`;
-}
+import { getTagUrl } from '../../utils/urls';
 
 function TagList() {
     const [tags, setTags] = useState([]);
@@ -36,9 +33,9 @@ function TagList() {
 }
 function _TagItem(name) {
     return (
-        <li><a 
-        // href={_getTagUrl(name)}
-         className="tags__link">#{name}</a></li>
+        <li><a
+            href={getTagUrl(name)}
+            className="tags__link">#{name}</a></li>
     );
 }
 

@@ -36,6 +36,8 @@
             opacity: 0.5;
             line-height: 2.1;
             transition: all .25s ease-in;
+            text-decoration: none;
+            color: inherit;
             cursor: pointer;
 
             &:hover {

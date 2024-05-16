@@ -13,3 +13,7 @@ export function getCategoryUrl(category) {
     // return `/categories/${category}`
     return `/articles?category=${category || ''}`
 }
+
+export function getTagUrl(tag) {
+    return `/articles?tags=${tag}`;
+}

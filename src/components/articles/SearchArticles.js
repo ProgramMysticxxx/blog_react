@@ -35,7 +35,7 @@ export default function SearchArticles() {
         fetchTags();
     }, []);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (searchParams.get('category'))
             setCategory(searchParams.get('category')?.toLowerCase());
         if (searchParams.get('search'))
@@ -47,7 +47,7 @@ export default function SearchArticles() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         setSearchParams({
             category: category ?? undefined,
             search: search ?? undefined,
@@ -76,7 +76,7 @@ export default function SearchArticles() {
                                 {
                                     tags.map(tag =>
                                         <label className="checkbox">
-                                            <input type="checkbox" name="tag" className='real-checkbox' onChange={e => handleTagSelection(e, tag.name)} />
+                                            <input type="checkbox" name="tag" className='real-checkbox' onChange={e => handleTagSelection(e, tag.name)} checked={selectedTags.includes(tag.name)} />
                                             <span className='custom-checkbox'></span>
                                             <p className="checkbox__text">{tag.name}</p>
                                         </label>
@@ -115,7 +115,11 @@ export default function SearchArticles() {
                                 </div>
                             </div>
                         </div>
-                        <Articles category={category} search={search} ordering={ordering} tags={selectedTags} />
+                        <Articles
+                            category={category}
+                            search={search}
+                            ordering={ordering}
+                            tags={selectedTags} />
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@ import iconDisLikeActive from '../../resources/img/icons/like-dislike/icon-illum
 import iconBookmark from '../../resources/img/icons/icon-bookmark.svg';
 import ArticleCommentList from './ArticleCommentList';
 import DOMPurify from 'dompurify';
-import { getArticleUrl } from '../../utils/urls';
+import { getArticleUrl, getCategoryUrl, getTagUrl } from '../../utils/urls';
 import { timeoutPreloader, usePreloader } from '../preloader/Preloader';
 
 export default function Article({ id }) {
@@ -157,7 +157,7 @@ export default function Article({ id }) {
                 </div>
                 <div className="article__info">
                     <div className="article__date">{formatDate(article.updated_at)}</div>
-                    <div className={`category category_article category_${article.category}`}>{categoryName[article.category]}</div>
+                    <div className={`category category_article category_${article.category}`} onClick={() => window.location = getCategoryUrl(article.category)}>{categoryName[article.category]}</div>
                 </div>
                 {article.cover_url &&
                     <div class="article__cover__wrapper">
@@ -183,7 +183,7 @@ export default function Article({ id }) {
                     <h3 className="title">Post Tags</h3>
                     <hr className="divider divider_tegs" />
                     <div className='article__tagsbox'>
-                        {article.tags && article.tags.map(tag => <a className="article__tags__link">#{tag}</a>)}
+                        {article.tags && article.tags.map(tag => <a className="article__tags__link" href={getTagUrl(tag)}>#{tag}</a>)}
                     </div>
                 </div>
                 <ArticleCommentList article_id={id} />
