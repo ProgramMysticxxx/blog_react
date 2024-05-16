@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import blogClient from "../../utils/blog_client";
 import { formatDate } from "../../utils/date";
 import { getAuthHeaders, isAuthorized } from "../../utils/auth_utils";
@@ -83,6 +83,7 @@ function NestedComments({ comments, onDelete, onReply }) {
 
 
 export default function ArticleCommentList({ article_id }) {
+    const commentFormRef = useRef();
     const [comments, setComments] = useState([]);
     const [replyTo, setReplyTo] = useState(null);
 
@@ -148,6 +149,7 @@ export default function ArticleCommentList({ article_id }) {
 
     function onReplyComment(comment) {
         setReplyTo(comment);
+        commentFormRef.current.scrollIntoView({ behavior: 'smooth' });
     }
 
     return (
@@ -162,7 +164,7 @@ export default function ArticleCommentList({ article_id }) {
                         onReply={onReplyComment} />
                 }
             </div>
-            <div className="form_comments">
+            <div className="form_comments" ref={commentFormRef}>
                 {replyTo &&
                     <div style={{
                         display: 'flex',
