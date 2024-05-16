@@ -5,12 +5,12 @@ import { getAuthHeaders, isAuthorized } from "../../utils/auth_utils";
 import iconIncognito from "../../resources/img/icons/icon-incognito.svg";
 import { getProfileUrl } from "../../utils/urls";
 
-function ArticleCommentItem({comment}) {
+function ArticleCommentItem({ comment }) {
     return (
-        <div className="comments__comment" style={{paddingBottom: '20px'}}>
+        <div className="comments__comment" style={{ paddingBottom: '20px' }}>
             <div className="comments__imgbox">
                 <img src={comment.author_details?.avatar_url ?? iconIncognito} alt="inkognito" className="comments__img" />
-                </div>
+            </div>
             <div className="comments__content">
                 <a href={getProfileUrl(comment.author_details?.username)} className="comments__username">@{comment.author_details?.username}</a>
                 <div className="comments__content__wrapper">
@@ -32,7 +32,7 @@ export default function ArticleCommentList({ article_id }) {
             const response = await client.getComments({
                 article__id: article_id,
                 ordering: '-created_at',
-            });
+            }, {}, getAuthHeaders(),);
             setComments(response.data.results);
         } catch (error) {
             alert("Coult not fetch comments: " + error);
@@ -51,7 +51,7 @@ export default function ArticleCommentList({ article_id }) {
             alert("You must be logged in to comment");
             return;
         }
-        
+
         if (message.length <= 0) {
             alert("Message cannot be empty");
             return;
