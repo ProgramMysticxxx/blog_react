@@ -6,7 +6,7 @@ import blogClient from '../../utils/blog_client';
 import { getTokenCookie } from '../../utils/cookie_manager';
 import JoditEditor from 'jodit-react';
 
-import coverPlug from '../../resources/img/bloging/plug.jpg';
+import coverPlug from '../../resources/img/icons/plugs/plug.svg';
 import { timeoutPreloader, usePreloader } from '../preloader/Preloader';
 
 const PublishStatus = {
@@ -169,7 +169,7 @@ function Bloging({ id }) {
                     <div className="form__editor">
                         <h4 className="title title_bloging_point">Add a cover image for your article (optional):</h4>
                         <div className="cover__img">
-                            <img src={coverUrl || coverPlug} className="article__cover" alt='cover' onClick={() => document.getElementById(coverId).click()} />
+                            <img src={coverUrl || coverPlug} className="article__cover" alt='cover' onClick={() => document.getElementById(coverId).click()} style={{ cursor: 'pointer' }} />
                         </div>
                         <div className="cover__status">
                             <span id="file-name">{fileName}</span>

@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import blogClient from "../../utils/blog_client";
 import { getTokenCookie } from "../../utils/cookie_manager";
 import { getArticleUrl } from "../../utils/urls";
+import ItemProfile from "./ItemProfile";
 
 function ProfileArticleItem(article) {
 
     return (
         <div>
+            <ItemProfile />
             <a href={getArticleUrl(article.id)}>{article.title}</a>
         </div>
     );
@@ -39,7 +41,7 @@ export default function ProfileArticlesList({ username, favorited }) {
     }, []);
 
     return (
-        <div style={{flexDirection: 'column'}}>
+        <div className="articles__list">
             {articles.map((article, _) => ProfileArticleItem(article))}
         </div>
     );

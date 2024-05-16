@@ -9,6 +9,7 @@ import iconLikeActive from '../../resources/img/icons/like-dislike/icon-illumina
 import iconDisLike from '../../resources/img/icons/like-dislike/icon-illuminate-dislike.png';
 import iconDisLikeActive from '../../resources/img/icons/like-dislike/icon-illuminate-dislike-active.png';
 import iconBookmark from '../../resources/img/icons/icon-bookmark.svg';
+import iconBookmarkActive from '../../resources/img/icons/icon-bookmark_active.svg';
 import ArticleCommentList from './ArticleCommentList';
 import DOMPurify from 'dompurify';
 import { getArticleUrl, getCategoryUrl, getProfileUrl, getTagUrl } from '../../utils/urls';
@@ -172,7 +173,7 @@ export default function Article({ id }) {
                         <img onClick={like} src={article.your_rate === true ? iconLikeActive : iconLike} alt="like" className="rate__like" />
                         <img onClick={dislike} src={article.your_rate === false ? iconDisLikeActive : iconDisLike} alt="dislike" className="rate__dislike" />
                         <div className="rate__rating">{article.rating}</div>
-                        <img onClick={toggleBookmark} src={iconBookmark} alt="bookmark" className="rate__bookmark" style={{ background: article.is_your_bookmark && "yellow" }} />
+                        <img onClick={toggleBookmark} src={article.is_your_bookmark ? iconBookmarkActive : iconBookmark} alt="bookmark" className="rate__bookmark" />
                     </div>
                     <div className="change-article">
                         {article.you_author && <button onClick={editArticle} className="button button_change button_edit">Edit Article</button>}

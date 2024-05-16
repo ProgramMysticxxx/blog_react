@@ -60,7 +60,7 @@ function _PopPost(article, index) {
     return (
         <div className="pop-post">
             <a href={getArticleUrl(id)} className="pop-post__img">
-                <img src={cover_url || _getPlaceholderCoverUrl(index)} alt="man" />
+            <div style={{background: `url(${cover_url || _getPlaceholderCoverUrl(index)}) center center/cover no-repeat`}} className="pop-post__img"></div>
             </a>
             <div className="pop-post__content">
                 <h3 className="title title_pop-post">

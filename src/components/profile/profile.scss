@@ -4,6 +4,12 @@
     margin: 0 auto;
     padding: 100px 0;
 
+    &__main {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
     &__buttons_wrapper {
         display: flex;
         flex-direction: row;
@@ -64,6 +70,7 @@
     }
 
     &__imgbox {
+        margin: 15px;
         height: 140px;
         width: 140px;
         border-radius: 100%;
@@ -106,4 +113,11 @@
     &__descr {
         font-size: 18px;
     }
+}
+
+.articles__list {
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }

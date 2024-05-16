@@ -100,5 +100,20 @@
             font-size: 15px;
             color: $mainTextColor;
         }
+
+        &_items {
+            margin-top: 10px;
+            font-size: 15px;
+            color: $mainTextColor;
+        }
+    }
+
+    &__stats {
+        margin-right: 25px;
+        font-size: 18px;
+    }
+
+    &__status {
+        font-size: 18px;
     }
 }

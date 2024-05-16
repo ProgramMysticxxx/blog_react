@@ -88,9 +88,9 @@ export default function Profile({ username }) {
                             </div>
                             {isAuthorized() &&
                                 <div className='profile__buttons_wrapper'>
-                                    {isAuthorized() && profile.is_you && <button className="button button_edit" onClick={() => window.location.href = `/profile/${profile.username}/edit`}>Edit profile</button>}
-                                    {isAuthorized() && !profile.is_you && <button onClick={toggleFollow} className="button button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
-                                    {isAuthorized() && profile.is_you && <button className="button button_follow" onClick={logout}>Logout</button>}
+                                    {isAuthorized() && profile.is_you && <button className="button button_change button_edit" onClick={() => window.location.href = `/profile/${profile.username}/edit`}>Edit profile</button>}
+                                    {isAuthorized() && !profile.is_you && <button onClick={toggleFollow} className="button button_change button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
+                                    {isAuthorized() && profile.is_you && <button className="button button_change button_delete" onClick={logout}>Logout</button>}
                                 </div>
                             }
                         </div>
