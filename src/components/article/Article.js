@@ -183,8 +183,8 @@ export default function Article({ id }) {
                     <h3 className="title">Post Author</h3>
                     <hr className="divider divider_author" />
                     <div className="article__author">
-                        <div className="article__author__avatar">
-                            <img src={article.author_details?.avatar_url} alt="avatar" />
+                        <div>
+                            <img className="article__author__avatar" src={article.author_details?.avatar_url} alt="avatar" />
                         </div>
                         <div className="article__author__info">
                             {article.author_details?.public_name && <div className="article__author__name">{article.author_details?.public_name}</div>}
