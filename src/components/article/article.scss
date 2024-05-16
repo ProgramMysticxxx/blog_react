@@ -90,6 +90,12 @@
         text-align: center;
         font-weight: 500;
         font-size: 24px;
+
+
+        &.small {
+            font-size: 14px;
+            width: 30px;
+        }
     }
 
     img {
@@ -145,6 +151,19 @@
         font-size: 17px;
         font-weight: 500;
         color: $postLinksColor;
+        cursor: pointer;
+        transition: all .3s ease-in;
+
+        &:hover {
+            opacity: 0.7;
+            transition: all .3s ease-in;
+        }
+    }
+
+    &__delete {
+        font-size: 17px;
+        font-weight: 500;
+        color: red;
         cursor: pointer;
         transition: all .3s ease-in;
 

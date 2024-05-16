@@ -7,6 +7,7 @@ import DOMPurify from 'dompurify';
 import { extractTextContent } from '../../utils/dom_utils';
 import Pagination from '../carusel/Pagination';
 import { defaultPreloaderTimeout, usePreloader } from '../preloader/Preloader';
+import { takeFirstNChars } from '../../utils/string_utils';
 
 function Article(article) {
     // Prevent XSS
@@ -15,6 +16,7 @@ function Article(article) {
     // Leave only text content
     const textContent = extractTextContent(sanitized);
     article.content = textContent;
+    article.content = takeFirstNChars(textContent, 100);
 
     const {
         id,

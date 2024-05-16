@@ -9,14 +9,14 @@ import { useSearchParams } from 'react-router-dom';
 import blogClient from '../../utils/blog_client';
 
 export default function SearchArticles() {
-    const searchId = useId();
-    const [search, setSearch] = useState("");
-    const [ordering, setOrdering] = useState("-updated_at");
-    const [category, setCategory] = useState("all");
     const [searchParams, setSearchParams] = useSearchParams();
+    const searchId = useId();
+    const [search, setSearch] = useState(searchParams.get("search") ?? "");
+    const [ordering, setOrdering] = useState(searchParams.get("ordering") ?? "-updated_at");
+    const [category, setCategory] = useState(searchParams.get("category") ?? "all");
+    const [selectedTags, setSelectedTags] = useState(searchParams.get("tags")?.split(",") ?? []);
 
     const [tags, setTags] = useState([]);
-    const [selectedTags, setSelectedTags] = useState([]);
 
     async function fetchTags() {
         const client = await blogClient.init();
@@ -33,18 +33,6 @@ export default function SearchArticles() {
 
     useLayoutEffect(() => {
         fetchTags();
-    }, []);
-
-    useEffect(() => {
-        if (searchParams.get('category'))
-            setCategory(searchParams.get('category')?.toLowerCase());
-        if (searchParams.get('search'))
-            setSearch(searchParams.get('search'));
-        if (searchParams.get('ordering'))
-            setOrdering(searchParams.get('ordering')?.toLowerCase());
-        if (searchParams.get('tags'))
-            setSelectedTags(searchParams.get('tags')?.split(','));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
