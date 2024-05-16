@@ -189,7 +189,7 @@ export default function Article({ id }) {
                         <div className="article__author__info">
                             {article.author_public_name && <div className="article__author__name">{article.author_public_name}</div>}
                             <a href={getProfileUrl(article.author_username)} className="article__author__name">@{article.author_username}</a>
-                            <div className="article__author__bio"><b>Bio: </b>{article.author_bio}</div>
+                            {article.author_bio && <div className="article__author__bio"><b>Bio: </b>{article.author_bio}</div>}
                             <div className="article__author__date"><b>Date Joined: </b>{formatDate(article.author_date_joined)}</div>
                         </div>
                     </div>

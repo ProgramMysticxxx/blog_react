@@ -58,8 +58,8 @@ async function saveProfile(
                 username: profile.username,
             },
             {
-                public_name: newData.public_name ? newData.public_name : undefined,
-                bio: newData.bio ? newData.bio : undefined,
+                public_name: newData.public_name ? newData.public_name : "",
+                bio: newData.bio ? newData.bio : "",
                 avatar: newData.delete_avatar === true ? null : uploadedAvatar?.id,
             },
             getAuthHeaders(),
