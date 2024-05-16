@@ -8,6 +8,7 @@ import { extractTextContent } from '../../utils/dom_utils';
 import Pagination from '../carusel/Pagination';
 import { defaultPreloaderTimeout, usePreloader } from '../preloader/Preloader';
 import { takeFirstNChars } from '../../utils/string_utils';
+import categoryName from '../../utils/category_name';
 
 function Article(article) {
     // Prevent XSS
@@ -38,9 +39,9 @@ function Article(article) {
             }
             <div class="item__wrapper">
                 <p class="creator__data creator__data_article">{formatDate(created_at)}</p>
-                <h3 class="title title_article"><a href={getArticleUrl(id)}>{title}</a></h3>
+                <h3 class="title title_article"><a href={getArticleUrl(id)}>{takeFirstNChars(title, 34)}</a></h3>
                 <p class="item__text">{content}</p>
-                <a href={getCategoryUrl(category)} class={`category category_article category_${category}`}>{category}</a>
+                <a href={getCategoryUrl(category)} class={`category category_article category_${category}`}>{categoryName[category]}</a>
             </div>
         </div>
     );

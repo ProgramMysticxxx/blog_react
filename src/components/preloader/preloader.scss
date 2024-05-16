@@ -1,3 +1,5 @@
+@import '../../style/variables.scss';
+
 .preloader {
     display: flex;
     justify-content: center;
@@ -7,7 +9,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #000;
+    background: $navigationColor;
     z-index: 1000;
     transition: opacity 0.5s;
 
@@ -18,7 +20,7 @@
 
     &__spinner {
         border: 6px solid #f3f3f3; /* Light grey */
-        border-top: 6px solid #3498db; /* Blue */
+        border-top: 6px solid $decorColor; /* Blue */
         border-radius: 50%;
         width: 40px;
         height: 40px;

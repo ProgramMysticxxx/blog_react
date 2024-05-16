@@ -46,7 +46,9 @@ function ArticleCommentItem({ comment, onDelete, onReply, onRate }) {
                         <div className="rate__rating small">{comment.rating}</div>
                     </div>
                 </div>
-                <div className="comments__message">{comment.content}</div>
+                <div className="comments__message">
+                    <p>{comment.content}</p>
+                </div>
             </div>
         </div>
     );
@@ -206,8 +208,8 @@ export default function ArticleCommentList({ article_id }) {
 
     return (
         <div className="container">
+            <h3 className="title title_mb-50">Comments</h3>
             <div className="comments article__comments">
-                <h3 className="title title_mb-50">Comments</h3>
                 {
                     comments &&
                     <NestedComments

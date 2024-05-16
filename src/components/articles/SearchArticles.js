@@ -25,7 +25,7 @@ export default function SearchArticles() {
                 limit: Infinity,
             });
 
-            setTags(response.data.results);
+            setTags(response.data.results.filter(t => t.articles_count > 0));
         } catch (error) {
             alert("Coult not fetch tags: " + error);
         }
@@ -58,19 +58,19 @@ export default function SearchArticles() {
                 <div className="title title_blocks title_mb-30">Articles</div>
                 <div className="articles">
                     <aside className='categories__aside'>
-                        <h4 className='title title_aside title_mb-30'>Find an article by tag <span className='tag-count'>(310)</span></h4>
+                        <h4 className='title title_aside title_mb-30'>Find an article by tag <span className='tag-count'>({tags.length})</span></h4>
                         <ul className='menu categories__aside__list'>
-                            <li>
                                 {
                                     tags.map(tag =>
-                                        <label className="checkbox">
-                                            <input type="checkbox" name="tag" className='real-checkbox' onChange={e => handleTagSelection(e, tag.name)} checked={selectedTags.includes(tag.name)} />
-                                            <span className='custom-checkbox'></span>
-                                            <p className="checkbox__text">{tag.name}</p>
-                                        </label>
+                                        <li>
+                                            <label className="checkbox">
+                                                <input type="checkbox" name="tag" className='real-checkbox' onChange={e => handleTagSelection(e, tag.name)} checked={selectedTags.includes(tag.name)} />
+                                                <span className='custom-checkbox'></span>
+                                                <p className="checkbox__text">{tag.name} ({tag.articles_count})</p>
+                                            </label>
+                                        </li>
                                     )
                                 }
-                            </li>
                         </ul>
                     </aside>
                     <div className="articles_items">

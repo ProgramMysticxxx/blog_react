@@ -81,18 +81,22 @@ export default function Profile({ username }) {
                             </div>
                             <div className="profile__about">
                                 <div className="profile__initial">
-                                    {profile.public_name && <div className="profile__pablicname">{profile.public_name}</div>}
-                                    <a href={getProfileUrl(profile.username)} className="profile__username">@{profile.username}</a>
+                                    <div className="profile__initial_wrap">
+                                        {profile.public_name &&
+                                        <div className="profile__pablicname">{profile.public_name}</div>
+                                        }
+                                        <a href={getProfileUrl(profile.username)} className="profile__username">@{profile.username}</a>
+                                    </div>
+                                    {isAuthorized() &&
+                                    <div className='profile__buttons_wrapper'>
+                                        {isAuthorized() && profile.is_you && <button className="button button_change button_edit" onClick={() => window.location.href = `/profile/${profile.username}/edit`}>Edit profile</button>}
+                                        {isAuthorized() && !profile.is_you && <button onClick={toggleFollow} className="button button_change button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
+                                        {isAuthorized() && profile.is_you && <button className="button button_change button_delete" onClick={logout}>Logout</button>}
+                                    </div>
+                                    }
                                 </div>
                                 <p className="profile__text">{profile.bio}</p>
                             </div>
-                            {isAuthorized() &&
-                                <div className='profile__buttons_wrapper'>
-                                    {isAuthorized() && profile.is_you && <button className="button button_change button_edit" onClick={() => window.location.href = `/profile/${profile.username}/edit`}>Edit profile</button>}
-                                    {isAuthorized() && !profile.is_you && <button onClick={toggleFollow} className="button button_change button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
-                                    {isAuthorized() && profile.is_you && <button className="button button_change button_delete" onClick={logout}>Logout</button>}
-                                </div>
-                            }
                         </div>
                         <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} isYou={profile.is_you} />
                     </div>

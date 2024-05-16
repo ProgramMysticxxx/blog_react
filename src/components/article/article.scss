@@ -4,9 +4,12 @@
     padding: 100px 0;
 
     &__author {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: auto 400px;
         &__avatar {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
 
@@ -14,6 +17,52 @@
                 width: 100%;
                 height: 100%;
             }
+        }
+
+        &__content {
+            padding: 0 30px 0 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 50px;
+        }
+
+        &__initial {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        &__name {
+            font-weight: 500;
+            font-size: 32px;
+            color: $navigationColor;
+            text-decoration: none;
+        }
+
+        .special_text {
+            font-weight: 600;
+            font-size: 23px;
+            color: $navigationColor;
+        }
+
+        &__bio {
+            width: 700px;
+            margin-left: 30px;
+            font-size: 22px;
+            color: $navigationColor;
+            overflow-wrap: break-word;
+        }
+
+        &__info {
+            padding: 0 10px 0 50px;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #656565;
+            p {
+                display: inline-block;
+                font-size: 20px;
+                color: $navigationColor;
+            }            
         }
     }
 
@@ -35,8 +84,12 @@
         gap: 10px;
     }
 
+    &__content {
+        overflow-wrap: break-word;
+    }
+
     &__tags {
-        margin: 40px 0 100px;
+        margin: 40px 0 70px;
         display: flex;
         justify-content: start;
         align-items: center;
@@ -62,12 +115,10 @@
                 transition: all .25s ease-in;
             }
         }
-
-
     }
 
     &__panel {
-        margin-top: 60px;
+        margin: 50px 0 70px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -116,7 +167,6 @@
 
     &__img {
         height: 100%;
-        width: 100%;
         border-radius: 100%;
     }
 
@@ -138,6 +188,7 @@
             margin-bottom: 25px;
             display: flex;
             justify-content: flex-start;
+            overflow-wrap: initial;
             align-items: center;
             gap: 35px;
         }
@@ -174,7 +225,11 @@
     }
 
     &__message {
+        max-width: 1050px;
         font-size: 16px;
         overflow-wrap: break-word;
+        p {
+            width: 100%;
+        }
     }
 }

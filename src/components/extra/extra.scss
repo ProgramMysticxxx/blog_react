@@ -28,6 +28,7 @@
         grid-template-columns: 120px auto;
         column-gap: 35px;
         box-shadow: 2px 1px 3px  1px $decorColor;
+        background-image: linear-gradient(230deg, rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.3));
     }
     &__img {
         position: relative;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './article.scss';
 import blogClient from '../../utils/blog_client';
 import { getAuthHeaders, isAuthorized } from '../../utils/auth_utils';
@@ -14,6 +15,7 @@ import ArticleCommentList from './ArticleCommentList';
 import DOMPurify from 'dompurify';
 import { getArticleUrl, getCategoryUrl, getProfileUrl, getTagUrl } from '../../utils/urls';
 import { timeoutPreloader, usePreloader } from '../preloader/Preloader';
+import ProfileItem from '../profile/ProfileItem';
 
 export default function Article({ id }) {
     const preloader = usePreloader();
@@ -153,7 +155,7 @@ export default function Article({ id }) {
     return (
         <section className="article">
             <div className="container container_main">
-                <div className="title title_blocks title_mb-10">
+                <div className="title title_blocks title_mb-10 title_center">
                     {article.title}
                 </div>
                 <div className="article__info">
@@ -183,19 +185,7 @@ export default function Article({ id }) {
                 <div>
                     <h3 className="title">Post Author</h3>
                     <hr className="divider divider_author" />
-                    <div className="article__author">
-                        <div>
-                            <img className="article__author__avatar" src={article.author_details?.avatar_url} alt="avatar" />
-                        </div>
-                        <div className="article__author__info">
-                            {article.author_details?.public_name && <div className="article__author__name">{article.author_details?.public_name}</div>}
-                            <a href={getProfileUrl(article.author_details?.username)} className="article__author__name">@{article.author_details?.username}</a>
-                            {article.author_details?.bio && <div className="article__author__bio"><b>Bio: </b>{article.author_details?.bio}</div>}
-                            <div className="article__author__date"><b>Date Joined: </b>{formatDate(article.author_details?.date_joined)}</div>
-                            <div className="article__author__rating"><b>Rating: </b>{article.author_details?.total_articles_rating}</div>
-                            <div className="article__author__subscribers"><b>Subscribers: </b>{article.author_details?.subscribers_count}</div>
-                        </div>
-                    </div>
+                    <ProfileItem profile={article.author_details} />
                 </div>
                 <div className="article__tags">
                     <h3 className="title">Post Tags</h3>

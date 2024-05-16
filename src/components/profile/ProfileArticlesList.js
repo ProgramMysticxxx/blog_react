@@ -7,10 +7,10 @@ import ItemProfile from "./ItemProfile";
 function ProfileArticleItem(article) {
 
     return (
-        <div>
+        <>
             <ItemProfile />
             <a href={getArticleUrl(article.id)}>{article.title}</a>
-        </div>
+        </>
     );
 }
 

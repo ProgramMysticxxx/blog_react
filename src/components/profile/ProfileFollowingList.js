@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import blogClient from "../../utils/blog_client";
 import { getAuthHeaders } from "../../utils/auth_utils";
 import { getProfileUrl } from "../../utils/urls";
+import ProfileItem from "./ProfileItem";
 
 export default function ProfileFollowingList() {
     const [profiles, setProfiles] = useState([]);
@@ -24,10 +25,10 @@ export default function ProfileFollowingList() {
     }, []);
 
     return (
-        <>
+        <div className="following__list">
             {profiles.map(profile => (
-                <a href={getProfileUrl(profile.username)}>@{profile.username}</a>
+                <ProfileItem profile={profile} />
             ))}
-        </>
+        </div>
     );
 }
