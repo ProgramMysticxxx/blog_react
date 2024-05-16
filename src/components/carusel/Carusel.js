@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useLayoutEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './carusel.scss';
 import blogClient from '../../utils/blog_client';
 import { formatDate } from '../../utils/date';
@@ -6,9 +6,7 @@ import { getArticleUrl, getCategoryUrl } from '../../utils/urls';
 import DOMPurify from 'dompurify';
 import { extractTextContent } from '../../utils/dom_utils';
 import Pagination from '../carusel/Pagination';
-import { PreloaderContext, defaultPreloaderTimeout } from '../preloader/Preloader';
-import categoryName from '../../utils/category_name';
-import { useSearchParams } from 'react-router-dom';
+import { defaultPreloaderTimeout, usePreloader } from '../preloader/Preloader';
 
 function Article(article) {
     // Prevent XSS
@@ -53,7 +51,7 @@ function Articles({
     ordering,
     tags,
 }) {
-    const preloader = useContext(PreloaderContext);
+    const preloader = usePreloader();
 
     const topRef = useRef(null);
 

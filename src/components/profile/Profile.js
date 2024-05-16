@@ -1,20 +1,18 @@
 import './profile.scss';
 
-import { useState, useEffect, act, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import blogClient from '../../utils/blog_client';
 import { getProfileUrl } from '../../utils/urls';
 import { formatDate } from '../../utils/date';
-import { deleteTokenCookie, deleteUsernameCookie, getTokenCookie } from '../../utils/cookie_manager';
-import illuminatiIcon from '../../resources/img/icons/icon-illuminati.svg';
+import { deleteTokenCookie, deleteUsernameCookie } from '../../utils/cookie_manager';
 import ProfileTabs from './ProfileTabs';
-import EmptyPlaceholder from './EmptyPlaceholder';
 import ProfileArticlesList from './ProfileArticlesList';
 import ProfileFollowingList from './ProfileFollowingList';
 import { getAuthHeaders, isAuthorized } from '../../utils/auth_utils';
-import { PreloaderContext, defaultPreloaderTimeout } from '../preloader/Preloader';
+import { defaultPreloaderTimeout, usePreloader } from '../preloader/Preloader';
 
 export default function Profile({ username }) {
-    const preloader = useContext(PreloaderContext);
+    const preloader = usePreloader();
     const [profile, setProfile] = useState([]);
 
     function logout() {
