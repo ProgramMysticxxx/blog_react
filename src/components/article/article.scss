@@ -153,6 +153,19 @@
         }
     }
 
+    &__delete {
+        font-size: 17px;
+        font-weight: 500;
+        color: red;
+        cursor: pointer;
+        transition: all .3s ease-in;
+
+        &:hover {
+            opacity: 0.7;
+            transition: all .3s ease-in;
+        }
+    }
+
     &__message {
         font-size: 16px;
     }
