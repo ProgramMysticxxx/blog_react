@@ -10,6 +10,7 @@ import ArticlePage from "./ArticlePage";
 import EditProfilePage from "./EditProfilePage";
 import SearchArticlesPage from "./SearchArticlesPage";
 import EditArticlePage from "./EditArticlePage";
+import NotFoundPage from "./NotFoundPage";
 
 export {
     HomePage,
@@ -24,4 +25,5 @@ export {
     EditProfilePage,
     SearchArticlesPage,
     EditArticlePage,
+    NotFoundPage,
 };

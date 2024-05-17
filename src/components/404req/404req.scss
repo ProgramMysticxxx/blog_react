@@ -1,0 +1,53 @@
+@import '../../style/variables.scss';
+
+.notfound {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: repeating-linear-gradient(90deg, $mainTextColor,  $decorColor 5px, $mainTextColor 0px, $navigationColor 50px);
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.2;
+    color: $titleColor;
+    text-align: center;
+    text-transform: capitalize;
+    
+    &__img2 {
+        position: absolute;
+        height: 450px;
+        width: 450px;
+        top: -300px;
+        left: -350px;
+        opacity: .7;
+    }
+
+    
+    &__img3 {
+        position: absolute;
+        height: 400px;
+        width: 400px;
+        top: -230px;
+        right: -150px;
+        left: 1000px;
+        opacity: .8;
+    }
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        img {
+            position: absolute;
+            right: -60px;
+            width: 500px;
+        }
+    }
+    &__title {
+        font-size: 105px;
+    }
+    &__text {
+        font-size: 70px;
+    }
+}
