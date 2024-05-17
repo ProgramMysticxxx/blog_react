@@ -7,11 +7,20 @@
         margin-top: 30px;
         display: grid;
         grid-template-columns: auto 400px;
+        &_profile {
+            margin-top: 0;
+            grid-template-columns: 600px 300px;
+        }
         &__avatar {
             width: 150px;
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
+
+            &_profile {
+                width: 120px;
+                height: 120px;
+            }
 
             &__img {
                 width: 100%;
@@ -24,6 +33,11 @@
             display: flex;
             align-items: flex-start;
             gap: 50px;
+            &_profile {
+                padding: 0 20px 0 0;
+                align-items: center;
+                gap: 30px;
+            }
         }
 
         &__initial {
@@ -37,32 +51,49 @@
             font-size: 32px;
             color: $navigationColor;
             text-decoration: none;
+            &_profile {
+                font-size: 24px;
+            }
         }
 
         .special_text {
             font-weight: 600;
             font-size: 23px;
             color: $navigationColor;
+            &_profile {
+                font-size: 19px;
+            }
         }
 
         &__bio {
             width: 700px;
-            margin-left: 30px;
+            margin-left: 2px;
             font-size: 22px;
             color: $navigationColor;
             overflow-wrap: break-word;
+            &_profile {
+                width: 380px;
+                font-size: 20px;
+            }
         }
 
         &__info {
             padding: 0 10px 0 50px;
             display: flex;
+            justify-content: flex-start;
             flex-direction: column;
             border-left: 1px solid #656565;
+            &_profile {
+                padding: 0 10px 0 20px;
+            }
             p {
                 display: inline-block;
                 font-size: 20px;
                 color: $navigationColor;
-            }            
+            }
+            .prof {
+                font-size: 17px;
+            } 
         }
     }
 
@@ -231,5 +262,19 @@
         p {
             width: 100%;
         }
+    }
+}
+
+.reply_to {
+    display: flex;
+    font-weight: 500;
+    font-size: 22px;
+    color: $navigationColor;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    &_text {
+        font-weight: 400;
+        font-size: 21px;
     }
 }

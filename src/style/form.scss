@@ -36,7 +36,8 @@
 }
 
 .form_contact,
-.form_comments {
+.form_comments,
+.form_profile_editor {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -106,5 +107,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 35px;
+}
+
+.form_profile_editor {
+    input,
+    textarea {
+        width: 100%;
+    }
+
+    textarea {
+        height: 100px;
+    }
 }

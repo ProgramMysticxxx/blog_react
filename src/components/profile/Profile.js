@@ -76,9 +76,7 @@ export default function Profile({ username }) {
                 <div className="profile__wrapper">
                     <div className="profile__main">
                         <div className="profile__char">
-                            <div className='profile__imgbox'>
-                                <img src={profile.avatar_url} className="profile__img" />
-                            </div>
+                            <img style={{ background: `url(${profile.avatar_url})center center/cover no-repeat`}} className="profile__img" />
                             <div className="profile__about">
                                 <div className="profile__initial">
                                     <div className="profile__initial_wrap">

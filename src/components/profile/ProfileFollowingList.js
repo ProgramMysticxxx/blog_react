@@ -25,10 +25,12 @@ export default function ProfileFollowingList() {
     }, []);
 
     return (
-        <div className="following__list">
+        <>
             {profiles.map(profile => (
-                <ProfileItem profile={profile} />
+                <div className="following__list following__list_profile">
+                    <ProfileItem profile={profile} context="profile" />
+                </div>
             ))}
-        </div>
+        </>
     );
 }

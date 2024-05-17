@@ -9,6 +9,7 @@ import iconLike from '../../resources/img/icons/like-dislike/icon-illuminate-lik
 import iconLikeActive from '../../resources/img/icons/like-dislike/icon-illuminate-like-active.png';
 import iconDisLike from '../../resources/img/icons/like-dislike/icon-illuminate-dislike.png';
 import iconDisLikeActive from '../../resources/img/icons/like-dislike/icon-illuminate-dislike-active.png';
+import cancel from '../../resources/img/icons/icon-cancel.svg';
 
 function ArticleCommentItem({ comment, onDelete, onReply, onRate }) {
     function onLike(e) {
@@ -221,14 +222,12 @@ export default function ArticleCommentList({ article_id }) {
             </div>
             <div className="form_comments" ref={commentFormRef}>
                 {replyTo &&
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: '5px',
-                    }}>
-                        <b>Reply to:</b>
-                        <p>{replyTo.author_details?.username}: {takeFirstNChars(replyTo.content, 40)}</p>
-                        <button onClick={() => setReplyTo(null)}>X</button>
+                    <div className="reply_to">
+                        <p className="reply_to_title">Reply to:</p>
+                        <p className="reply_to_text">{replyTo.author_details?.username}: {takeFirstNChars(replyTo.content, 40)}</p>
+                        <button className="button button_cancel" onClick={() => setReplyTo(null)}>
+                            <img src={cancel} alt="cancel" />
+                        </button>
                     </div>
                 }
                 <textarea id={messageId} value={message} onChange={e => setMessage(e.target.value)} type="text" name="Message" placeholder="Your Message"></textarea>
