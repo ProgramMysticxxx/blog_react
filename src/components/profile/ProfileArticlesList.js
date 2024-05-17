@@ -3,13 +3,15 @@ import blogClient from "../../utils/blog_client";
 import { getTokenCookie } from "../../utils/cookie_manager";
 import { getArticleUrl } from "../../utils/urls";
 import ItemProfile from "./ItemProfile";
+import articleNotCreated from "../../resources/img/icons/plugs/article-not-created.svg";
+import noArticlesSaved from "../../resources/img/icons/plugs/no-articles-saved.svg";
 
 function ProfileArticleItem(article) {
 
     return (
         <>
-            <ItemProfile />
-            <a href={getArticleUrl(article.id)}>{article.title}</a>
+            <ItemProfile article={article} />
+            {/* <a href={getArticleUrl(article.id)}>{article.title}</a> */}
         </>
     );
 }
@@ -41,8 +43,13 @@ export default function ProfileArticlesList({ username, favorited }) {
     }, []);
 
     return (
-        <div className="articles__list">
-            {articles.map((article, _) => ProfileArticleItem(article))}
+        <div>
+            { articles.length === 0 &&
+                <img src={favorited ? noArticlesSaved : articleNotCreated} alt="no articles saved" />
+            }
+            <div className="articles__list">
+                {articles.map((article, _) => ProfileArticleItem(article))}
+            </div>
         </div>
     );
 }

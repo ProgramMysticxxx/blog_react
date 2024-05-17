@@ -11,6 +11,7 @@ import {
     getProfileUrl,
     getCategoryUrl,
 } from "../../utils/urls";
+import coverIsMissing from "../../resources/img/icons/plugs/cover-is-missing.svg";
 
 function Header() {
     const [editorChoice, setEditorChoice] = useState([]);
@@ -50,7 +51,7 @@ function Header() {
                                     <ul className="creator">
                                         {editorChoice[0]?.author_details?.avatar_url &&
                                             <li>
-                                                <a href={getProfileUrl(editorChoice[0]?.author_details?.details?.username)} className="creator__link_img">
+                                                <a href={getProfileUrl(editorChoice[0]?.author_details?.username)} className="creator__link_img">
                                                     <img src={editorChoice[0]?.author_details?.avatar_url} alt="profile" className="creator__img" />
                                                 </a>
                                             </li>}

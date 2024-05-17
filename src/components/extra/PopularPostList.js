@@ -8,6 +8,7 @@ import blogClient from '../../utils/blog_client';
 import { formatDate } from '../../utils/date';
 import { getArticleUrl, getProfileUrl } from '../../utils/urls';
 import { useId, useState, useEffect } from 'react';
+import coverIsMissing from "../../resources/img/icons/plugs/cover-is-missing.svg";
 
 function PopularPostList() {
     const [popularPosts, setPopularPosts] = useState([]);
@@ -60,7 +61,7 @@ function _PopPost(article, index) {
     return (
         <div className="pop-post">
             <a href={getArticleUrl(id)} className="pop-post__img">
-            <div style={{background: `url(${cover_url || _getPlaceholderCoverUrl(index)}) center center/cover no-repeat`}} className="pop-post__img" alt="ava"></div>
+            <div style={{background: `url(${cover_url || coverIsMissing}) center center/cover no-repeat`}} className="pop-post__img" alt="ava"></div>
             </a>
             <div className="pop-post__content">
                 <h3 className="title title_pop-post">

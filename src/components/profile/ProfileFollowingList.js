@@ -3,6 +3,7 @@ import blogClient from "../../utils/blog_client";
 import { getAuthHeaders } from "../../utils/auth_utils";
 import { getProfileUrl } from "../../utils/urls";
 import ProfileItem from "./ProfileItem";
+import noFollowing from "../../resources/img/icons/plugs/no-following.svg";
 
 export default function ProfileFollowingList() {
     const [profiles, setProfiles] = useState([]);
@@ -25,12 +26,17 @@ export default function ProfileFollowingList() {
     }, []);
 
     return (
-        <>
-            {profiles.map(profile => (
-                <div className="following__list following__list_profile">
-                    <ProfileItem profile={profile} context="profile" />
-                </div>
-            ))}
-        </>
+        <div>
+            { profiles.length === 0 &&
+                <img src={noFollowing} alt="no following" />
+            }
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                {profiles.map(profile => (
+                    <div className="following__list following__list_profile">
+                        <ProfileItem profile={profile} context="profile" />
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 }

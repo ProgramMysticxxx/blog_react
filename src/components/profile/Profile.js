@@ -10,6 +10,7 @@ import ProfileArticlesList from './ProfileArticlesList';
 import ProfileFollowingList from './ProfileFollowingList';
 import { getAuthHeaders, isAuthorized } from '../../utils/auth_utils';
 import { defaultPreloaderTimeout, usePreloader } from '../preloader/Preloader';
+import iconIncognito from '../../resources/img/icons/icon-incognito.svg';
 
 export default function Profile({ username }) {
     const preloader = usePreloader();
@@ -76,7 +77,7 @@ export default function Profile({ username }) {
                 <div className="profile__wrapper">
                     <div className="profile__main">
                         <div className="profile__char">
-                            <img style={{ background: `url(${profile.avatar_url})center center/cover no-repeat`}} className="profile__img" />
+                            <img style={{ background: `url(${profile.avatar_url ?? iconIncognito})center center/cover no-repeat`}} className="profile__img" />
                             <div className="profile__about">
                                 <div className="profile__initial">
                                     <div className="profile__initial_wrap">
@@ -88,7 +89,7 @@ export default function Profile({ username }) {
                                     {isAuthorized() &&
                                     <div className='profile__buttons_wrapper'>
                                         {isAuthorized() && profile.is_you && <button className="button button_change button_edit" onClick={() => window.location.href = `/profile/${profile.username}/edit`}>Edit profile</button>}
-                                        {isAuthorized() && !profile.is_you && <button onClick={toggleFollow} className="button button_change button_follow">{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
+                                        {isAuthorized() && !profile.is_you && <button onClick={toggleFollow} className={`button button_change button_${profile.are_you_subscribed ? "delete" : "follow"}`}>{profile.are_you_subscribed ? "Unfollow" : "Follow"}</button>}
                                         {isAuthorized() && profile.is_you && <button className="button button_change button_delete" onClick={logout}>Logout</button>}
                                     </div>
                                     }

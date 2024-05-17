@@ -9,6 +9,7 @@ import Pagination from '../carusel/Pagination';
 import { defaultPreloaderTimeout, usePreloader } from '../preloader/Preloader';
 import { takeFirstNChars } from '../../utils/string_utils';
 import categoryName from '../../utils/category_name';
+import coverIsMissing from "../../resources/img/icons/plugs/cover-is-missing.svg"
 
 function Article(article) {
     // Prevent XSS
@@ -30,13 +31,13 @@ function Article(article) {
 
     return (
         <div class="item">
-            {cover_url &&
-                <div class="item__img">
-                    <a href={getArticleUrl(id)}>
-                        <img src={cover_url} alt="lamp" />
-                    </a>
-                </div>
-            }
+
+            <div class="item__img">
+                <a href={getArticleUrl(id)}>
+                    <img src={cover_url ?? coverIsMissing} alt="lamp" />
+                </a>
+            </div>
+
             <div class="item__wrapper">
                 <p class="creator__data creator__data_article">{formatDate(created_at)}</p>
                 <h3 class="title title_article"><a href={getArticleUrl(id)}>{takeFirstNChars(title, 34)}</a></h3>
@@ -82,7 +83,7 @@ function Articles({
                 category__name: category__name,
                 search: search,
                 ordering: ordering ?? '-updated_at',
-                tags__name : tags?.join(',') ?? undefined,
+                tags__name: tags?.join(',') ?? undefined,
             });
             const articles = response.data.results;
             setTotalArticles(response.data.count);
